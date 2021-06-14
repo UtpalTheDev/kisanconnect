@@ -54,7 +54,16 @@ export const authSlice = createSlice({
       state.isUserLogIn = true;
       setupAuthHeaderForServiceCalls(action.payload.token);
     },
-    Reset: (state, action) => {
+    logOut: (state) => {
+      localStorage?.removeItem("login");
+      state.isUserLogIn = false;
+      state.token = null;
+      state.getTokenStatus = "idle";
+      state.getTokenError = null;
+
+      setupAuthHeaderForServiceCalls(null);
+    },
+    authReset: (state, action) => {
       state.isUserLogIn = false;
       state.token = null;
       state.getTokenStatus = "idle";
@@ -108,6 +117,7 @@ export const {
   loginWithToken,
   Reset,
   clearStatus,
-  clearError
+  clearError,
+  logOut
 } = authSlice.actions;
 export default authSlice.reducer;

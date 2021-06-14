@@ -14,9 +14,9 @@ export default function Posts() {
   let { getPostStatus, postError, postData } = useSelector(
     (state) => state.post
   );
+  let { name, userId } = useSelector((state) => state.user);
   let dispatch = useDispatch();
   console.log(getPostStatus, postError, postData);
-  const userID = "utpal8";
   useEffect(() => {
     if (getPostStatus === "idle") {
       dispatch(fetchPosts());
@@ -39,8 +39,8 @@ export default function Posts() {
                   caption: post,
                   likes: [],
                   user: {
-                    userID: userID,
-                    name: "up"
+                    userID: userId,
+                    name: name
                   }
                 }
               })
@@ -58,7 +58,9 @@ export default function Posts() {
               <div>{item.caption}</div>
               <button
                 onClick={() =>
-                  dispatch(likeButtonPressed({ postID: item._id, userID }))
+                  dispatch(
+                    likeButtonPressed({ postID: item._id, userID: userId })
+                  )
                 }
               >
                 {item.likes.length} like
@@ -87,6 +89,8 @@ export default function Posts() {
 function Comment({ postID, setModal, postObj }) {
   const [comment, setComment] = useState("");
   let { commentData } = useSelector((state) => state.post);
+  let { name, userId } = useSelector((state) => state.user);
+
   let dispatch = useDispatch();
   console.log("commentData", commentData);
   const userID = "utpal8";
@@ -138,8 +142,8 @@ function Comment({ postID, setModal, postObj }) {
                   likes: [],
                   reply: [],
                   user: {
-                    userID: userID,
-                    name: "up"
+                    userID: userId,
+                    name: name
                   }
                 }
               })

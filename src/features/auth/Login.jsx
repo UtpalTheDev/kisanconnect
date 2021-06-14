@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LogInWithCredentials } from "./authSlice";
+import { userDataOnLoginButtonPress } from "../user/userSlice";
 // import treebanner from "./assets/treebanner.png";
 export default function Login() {
   let { isUserLogIn, getTokenError } = useSelector((state) => state.auth);
@@ -16,9 +17,12 @@ export default function Login() {
   let { state } = useLocation();
 
   useEffect(() => {
-    if (isUserLogIn) {
-      navigate(state?.from ? state.from : "/", { replace: true });
-    }
+    (async () => {
+      if (isUserLogIn) {
+        await dispatch(userDataOnLoginButtonPress());
+        navigate(state?.from ? state.from : "/", { replace: true });
+      }
+    })();
   }, [isUserLogIn]);
 
   async function LoginHandler() {

@@ -38,9 +38,12 @@ body {
 }
 .comment-feed {
   margin-bottom: 2rem;
+  overflow-y: scroll;
+  height:100%;
 }
 .comment-input {
   position: fixed;
   bottom: 0;
   width: 100%;
+  background:white;
 }

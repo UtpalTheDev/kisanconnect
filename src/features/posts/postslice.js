@@ -85,7 +85,7 @@ export const postslice = createSlice({
     [likeButtonPressed.fulfilled]: (state, action) => {
       state.postStatus = "succeeded";
       const { _id, likes } = action.payload.post;
-      console.log(_id, likes);
+      // console.log(_id, likes);
       state.postData.find((item) => item._id === _id).likes = likes;
     },
     [likeButtonPressed.rejected]: (state, action) => {
