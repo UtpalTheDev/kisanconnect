@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+console.log("postslice");
 export const fetchPosts = createAsyncThunk("post/fetchposts", async () => {
   const response = await axios.get(
     "https://social-media-demo.utpalpati.repl.co/posts"

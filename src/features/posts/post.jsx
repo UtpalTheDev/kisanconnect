@@ -109,18 +109,16 @@ function Comment({ postID, setModal, postObj }) {
       </div>
       <hr />
       <div className="comment-feed">
-        <div>
-          {commentData
-            .filter((commentobj) => commentobj.postID === postID)
-            .map((filterdata) => {
-              return (
-                <div>
-                  <div>{filterdata.user.name}</div>
-                  <div>{filterdata.caption}</div>
-                </div>
-              );
-            })}
-        </div>
+        {commentData
+          .filter((commentobj) => commentobj.postID === postID)
+          .map((filterdata) => {
+            return (
+              <div style={{ border: "1px black solid", marginTop: "0.5rem" }}>
+                <div>{filterdata.user.name}</div>
+                <div>{filterdata.caption}</div>
+              </div>
+            );
+          })}
       </div>
       <div className="comment-input">
         <input
