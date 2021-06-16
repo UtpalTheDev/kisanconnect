@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 export default function User() {
-  const { isUserLogIn } = useSelector((state) => state.auth);
+  const { isUserLogIn, token } = useSelector((state) => state.auth);
   const { name, email } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   // const { dispatch, user } = useReduce();

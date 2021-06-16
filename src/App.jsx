@@ -21,6 +21,7 @@ export default function App() {
     const { isUserLoggedIn, localtoken } =
       JSON.parse(localStorage?.getItem("login")) || {};
     isUserLoggedIn && localtoken && dispatch(loginWithToken({ localtoken }));
+    console.log("localtoken", localtoken);
     setupAuthExceptionHandler(dispatch, navigate);
   }, []);
 
@@ -30,6 +31,7 @@ export default function App() {
       (response) => response,
       (error) => {
         if (error?.response?.status === UNAUTHORIZED) {
+          console.log("line34");
           dispatch(logOut());
           navigate("login");
         }

@@ -50,11 +50,13 @@ export const authSlice = createSlice({
   },
   reducers: {
     loginWithToken: (state, action) => {
-      state.token = action.payload.token;
+      console.log("loginwithtoken", action);
+      state.token = action.payload.localtoken;
       state.isUserLogIn = true;
-      setupAuthHeaderForServiceCalls(action.payload.token);
+      setupAuthHeaderForServiceCalls(action.payload.localtoken);
     },
     logOut: (state) => {
+      console.log("logout");
       localStorage?.removeItem("login");
       state.isUserLogIn = false;
       state.token = null;
