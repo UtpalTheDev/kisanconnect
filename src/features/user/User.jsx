@@ -4,15 +4,19 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 import { resetPost } from "../posts/postslice";
-import { userSpecificPostOnLoad } from "./userSlice";
+import { userSpecificPostOnLoad, resetUser } from "./userSlice";
 
 export default function User() {
   const { isUserLogIn, token } = useSelector((state) => state.auth);
-  const { name, email, userposts } = useSelector((state) => state.user);
+  const { name, email, userposts, notificationError } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userSpecificPostOnLoad());
   }, []);
+  console.log("userposts", userposts);
+  console.log("notification err", notificationError);
   return (
     <div className="user">
       <div className="user-data">
@@ -24,11 +28,12 @@ export default function User() {
         onClick={() => {
           dispatch(logOut());
           dispatch(resetPost());
+          dispatch(resetUser());
         }}
       >
         logout
       </button>
-      {userposts && (
+      {userposts !== null && (
         <div>
           {userposts.map((eachpost) => {
             return (

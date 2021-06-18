@@ -30,12 +30,24 @@ export const notificationOnLoad = createAsyncThunk(
   }
 );
 export const userSpecificPostOnLoad = createAsyncThunk(
-  "user/notificationOnLoad",
+  "user/userSpecificPostOnLoad",
   async (value, { rejectWithValue }) => {
     try {
-      console.log("serSpecificPostOnLoad");
       let response = await axios.get(
         "https://social-media-demo.utpalpati.repl.co/posts/user_specific_post"
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const followSuggestion = createAsyncThunk(
+  "user/followSuggestion",
+  async (value, { rejectWithValue }) => {
+    try {
+      let response = await axios.get(
+        "https://social-media-demo.utpalpati.repl.co/suggestion/follow"
       );
       return response.data;
     } catch (error) {
@@ -61,7 +73,23 @@ export const userSlice = createSlice({
     notificationStatus: "idle",
     notificationError: null
   },
-  reducers: {},
+  reducers: {
+    resetUser: (state) => {
+      state.userId = null;
+      state.name = null;
+      state.email = null;
+      state.following = null;
+      state.follower = null;
+      state.userposts = null;
+      state.userpostsStatus = "idle";
+      state.userpostsError = null;
+      state.notification = null;
+      state.userDataStatus = "idle";
+      state.userDataError = null;
+      state.notificationStatus = "idle";
+      state.notificationError = null;
+    }
+  },
   extraReducers: {
     [userDataOnLoginButtonPress.pending]: (state) => {
       state.userDataStatus = "loading";
@@ -86,6 +114,7 @@ export const userSlice = createSlice({
     },
     [notificationOnLoad.rejected]: (state, action) => {
       state.notificationStatus = "failed";
+      console.log("noterr", action);
       state.notificationError = action.payload.message;
     },
     [userSpecificPostOnLoad.pending]: (state) => {
@@ -96,10 +125,10 @@ export const userSlice = createSlice({
       state.userposts = action.payload;
     },
     [userSpecificPostOnLoad.rejected]: (state, action) => {
-      state.notificationStatus = "failed";
-      state.notificationError = action.payload.message;
+      state.userStatus = "failed";
+      state.userpostsError = action.payload.message;
     }
   }
 });
-
+export const { resetUser } = userSlice.actions;
 export default userSlice.reducer;
