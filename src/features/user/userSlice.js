@@ -3,11 +3,25 @@ import axios from "axios";
 
 export const userDataOnLoginButtonPress = createAsyncThunk(
   "user/userDataOnLoginButtonPress",
-  async (dummy, { rejectWithValue }) => {
+  async (value, { rejectWithValue }) => {
     try {
       console.log("userDataOnLoginButtonPress");
       let response = await axios.get(
         "https://social-media-demo.utpalpati.repl.co/user"
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const notificationOnLoad = createAsyncThunk(
+  "user/notificationOnLoad",
+  async (value, { rejectWithValue }) => {
+    try {
+      console.log("notificationOnLoad");
+      let response = await axios.get(
+        "https://social-media-demo.utpalpati.repl.co/user/notification"
       );
       return response.data;
     } catch (error) {
@@ -24,9 +38,12 @@ export const userSlice = createSlice({
     email: null,
     following: null,
     follower: null,
-    posts: null,
+    userposts: null,
+    notification: null,
     userDataStatus: "idle",
-    userDataError: null
+    userDataError: null,
+    notificationStatus: "idle",
+    notificationError: null
   },
   reducers: {},
   extraReducers: {
@@ -42,7 +59,18 @@ export const userSlice = createSlice({
     },
     [userDataOnLoginButtonPress.rejected]: (state, action) => {
       state.userDataStatus = "failed";
-      state.userDataError = action.payload;
+      state.userDataError = action.payload.message;
+    },
+    [notificationOnLoad.pending]: (state) => {
+      state.notificationStatus = "loading";
+    },
+    [notificationOnLoad.fulfilled]: (state, action) => {
+      state.notificationStatus = "succeeded";
+      state.notification = action.payload;
+    },
+    [notificationOnLoad.rejected]: (state, action) => {
+      state.notificationStatus = "failed";
+      state.notificationError = action.payload.message;
     }
   }
 });

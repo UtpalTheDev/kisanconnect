@@ -11,7 +11,7 @@ import PrivateRoute from "./features/auth/PriavteRoute";
 import Login from "./features/auth/Login";
 import Signup from "./features/auth/Signup";
 import User from "./features/user/User";
-
+import Notification from "./features/user/Notification";
 export default function App() {
   console.log("app");
   const navigate = useNavigate();
@@ -45,12 +45,13 @@ export default function App() {
       <h1 className="app-header">utpal's box</h1>
       <div className="app-body">Put your app body here</div>
       <Link to="/user">user</Link>
-      <Link to="/">posts</Link>
+      <Link to="/"> posts</Link>
+      <Link to="/notification"> notification</Link>
 
       <Routes>
         <PrivateRoute path="/" element={<Posts />} />
         <PrivateRoute path="/user" element={<User />} />
-
+        <PrivateRoute path="/notification" element={<Notification />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

@@ -58,9 +58,7 @@ export default function Posts() {
               <div>{item.caption}</div>
               <button
                 onClick={() =>
-                  dispatch(
-                    likeButtonPressed({ postID: item._id, userID: userId })
-                  )
+                  dispatch(likeButtonPressed({ postID: item._id, name: name }))
                 }
               >
                 {item.likes.length} like
@@ -93,7 +91,7 @@ function Comment({ postID, setModal, postObj }) {
 
   let dispatch = useDispatch();
   console.log("commentData", commentData);
-  const userID = "utpal8";
+
   return (
     <div className="comment">
       <div className="comment-header">
