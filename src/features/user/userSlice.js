@@ -29,6 +29,20 @@ export const notificationOnLoad = createAsyncThunk(
     }
   }
 );
+export const userSpecificPostOnLoad = createAsyncThunk(
+  "user/notificationOnLoad",
+  async (value, { rejectWithValue }) => {
+    try {
+      console.log("serSpecificPostOnLoad");
+      let response = await axios.get(
+        "https://social-media-demo.utpalpati.repl.co/posts/user_specific_post"
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -39,6 +53,8 @@ export const userSlice = createSlice({
     following: null,
     follower: null,
     userposts: null,
+    userpostsStatus: "idle",
+    userpostsError: null,
     notification: null,
     userDataStatus: "idle",
     userDataError: null,
@@ -69,6 +85,17 @@ export const userSlice = createSlice({
       state.notification = action.payload;
     },
     [notificationOnLoad.rejected]: (state, action) => {
+      state.notificationStatus = "failed";
+      state.notificationError = action.payload.message;
+    },
+    [userSpecificPostOnLoad.pending]: (state) => {
+      state.userpostsStatus = "loading";
+    },
+    [userSpecificPostOnLoad.fulfilled]: (state, action) => {
+      state.userpostsStatus = "succeeded";
+      state.userposts = action.payload;
+    },
+    [userSpecificPostOnLoad.rejected]: (state, action) => {
       state.notificationStatus = "failed";
       state.notificationError = action.payload.message;
     }

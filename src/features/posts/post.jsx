@@ -19,7 +19,16 @@ export default function Posts() {
   let dispatch = useDispatch();
   console.log(getPostStatus, postError, postData);
   useEffect(() => {
-    dispatch(fetchPosts());
+    if (getPostStatus === "idle") {
+      dispatch(fetchPosts());
+      // let timer = setInterval(() => {
+      //   console.log("updating after 15 s")
+      //   dispatch(fetchPosts());
+      // }, 15000);
+      // return ()=>{
+      //   clearInterval(timer)
+      // }
+    }
   }, []);
   return (
     <>

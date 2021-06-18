@@ -10,8 +10,8 @@ export default function Notification() {
   return (
     <>
       {notification !== null &&
-        notification.map((item) => {
-          return <div>{item}</div>;
+        notification.map((item, index) => {
+          return <div key={index}>{item}</div>;
         })}
     </>
   );
