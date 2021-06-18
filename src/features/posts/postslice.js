@@ -64,7 +64,23 @@ export const postslice = createSlice({
     commentData: [],
     postData: []
   },
-  reducers: {},
+  reducers: {
+    clearStatus: (state) => {
+      state.getPostStatus = "idle";
+      state.sendPostStatus = "idle";
+      state.commentGetStatus = "idle";
+      state.commentGetStatus = "idle";
+    },
+    resetPost: (state) => {
+      state.getPostStatus = "idle";
+      state.sendPostStatus = "idle";
+      state.commentPostStatus = "idle";
+      state.commentGetStatus = "idle";
+      state.postError = null;
+      state.commentData = [];
+      state.postData = [];
+    }
+  },
   extraReducers: {
     /*---------fetchpost-----------------------------*/
     [fetchPosts.pending]: (state, action) => {
@@ -136,5 +152,5 @@ export const postslice = createSlice({
     }
   }
 });
-
+export const { clearStatus, resetPost } = postslice.actions;
 export default postslice.reducer;

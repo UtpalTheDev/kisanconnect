@@ -5,7 +5,8 @@ import {
   likeButtonPressed,
   commentSendButtonPressed,
   commentButtonPressed,
-  postButtonPressed
+  postButtonPressed,
+  clearStatus
 } from "./postslice";
 
 export default function Posts() {
@@ -18,10 +19,8 @@ export default function Posts() {
   let dispatch = useDispatch();
   console.log(getPostStatus, postError, postData);
   useEffect(() => {
-    if (getPostStatus === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [getPostStatus, dispatch]);
+    dispatch(fetchPosts());
+  }, []);
   return (
     <>
       <div>

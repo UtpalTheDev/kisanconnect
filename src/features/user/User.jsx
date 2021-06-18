@@ -3,6 +3,7 @@ import { useEffect } from "react";
 // import { useReduce } from "./Reducer-context";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
+import { resetPost } from "../posts/postslice";
 export default function User() {
   const { isUserLogIn, token } = useSelector((state) => state.auth);
   const { name, email } = useSelector((state) => state.user);
@@ -32,6 +33,7 @@ export default function User() {
         className="user-logout primary-button"
         onClick={() => {
           dispatch(logOut());
+          dispatch(resetPost());
         }}
       >
         logout
