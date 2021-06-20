@@ -4,25 +4,45 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 import { resetPost } from "../posts/postslice";
-import { userSpecificPostOnLoad, resetUser } from "./userSlice";
+import {
+  userSpecificPostOnLoad,
+  resetUser,
+  followSuggestion,
+  followButtonPress,
+  userDataOnUserPageLoad,
+  followingButtonPress
+} from "./userSlice";
 
 export default function User() {
   const { isUserLogIn, token } = useSelector((state) => state.auth);
-  const { name, email, userposts, notificationError } = useSelector(
-    (state) => state.user
-  );
+  const {
+    name,
+    email,
+    userposts,
+    notificationError,
+    followSuggestionList,
+    followrequestSent,
+    followrequestGot,
+    following
+  } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(userDataOnUserPageLoad());
     dispatch(userSpecificPostOnLoad());
+    dispatch(followSuggestion());
   }, []);
   console.log("userposts", userposts);
   console.log("notification err", notificationError);
+  console.log("followrequestsent", followrequestSent);
+  console.log("followrequestgot", followrequestGot);
+
   return (
     <div className="user">
       <div className="user-data">
         <div>Name: {name}</div>
         <div>EmailId: {email}</div>
       </div>
+
       <button
         className="user-logout primary-button"
         onClick={() => {
@@ -33,6 +53,55 @@ export default function User() {
       >
         logout
       </button>
+      <hr />
+      {followSuggestionList !== null &&
+        followSuggestionList.map((item) => {
+          return (
+            <div>
+              <div>{item.userName}</div>
+
+              {followrequestSent.find(
+                (pendingobj) => pendingobj._id === item._id
+              ) && (
+                <button
+                  onClick={() => {
+                    dispatch(followButtonPress({ followerId: item._id }));
+                  }}
+                >
+                  Requested
+                </button>
+              )}
+
+              {!followrequestSent.find(
+                (pendingobj) => pendingobj._id === item._id
+              ) &&
+                !following.find(
+                  (followingobj) => followingobj._id === item._id
+                ) && (
+                  <button
+                    onClick={() => {
+                      dispatch(followButtonPress({ followerId: item._id }));
+                    }}
+                  >
+                    Follow
+                  </button>
+                )}
+
+              {following.find(
+                (followingobj) => followingobj._id === item._id
+              ) && (
+                <button
+                  onClick={() => {
+                    dispatch(followingButtonPress({ followingId: item._id }));
+                  }}
+                >
+                  Following
+                </button>
+              )}
+            </div>
+          );
+        })}
+      <hr />
       {userposts !== null && (
         <div>
           {userposts.map((eachpost) => {

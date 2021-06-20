@@ -9,6 +9,7 @@ export const LogInWithCredentials = createAsyncThunk(
         "https://social-media-demo.utpalpati.repl.co/login",
         { user: logindata }
       );
+      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

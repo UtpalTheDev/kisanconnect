@@ -15,21 +15,21 @@ export default function Posts() {
   let { getPostStatus, postError, postData } = useSelector(
     (state) => state.post
   );
-  let { name, userId } = useSelector((state) => state.user);
+  let { name, userId, following } = useSelector((state) => state.user);
   let dispatch = useDispatch();
   console.log(getPostStatus, postError, postData);
   useEffect(() => {
-    if (getPostStatus === "idle") {
-      dispatch(fetchPosts());
-      // let timer = setInterval(() => {
-      //   console.log("updating after 15 s")
-      //   dispatch(fetchPosts());
-      // }, 15000);
-      // return ()=>{
-      //   clearInterval(timer)
-      // }
-    }
-  }, []);
+    // if (getPostStatus === "idle") {
+    dispatch(fetchPosts());
+    // let timer = setInterval(() => {
+    //   console.log("updating after 15 s")
+    //   dispatch(fetchPosts());
+    // }, 15000);
+    // return ()=>{
+    //   clearInterval(timer)
+    // }
+    // }
+  }, [following]);
   return (
     <>
       <div>
