@@ -129,6 +129,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     userId: null,
+    userName: null,
     name: null,
     email: null,
     following: [],
@@ -151,6 +152,7 @@ export const userSlice = createSlice({
     resetUser: (state) => {
       state.userId = null;
       state.name = null;
+      state.userName = null;
       state.email = null;
       state.following = [];
       state.follower = [];
@@ -175,7 +177,7 @@ export const userSlice = createSlice({
       state.userDataStatus = "succeeded";
       console.log("kd", action);
       state.userId = action.payload._id;
-      state.name = action.payload.userName;
+      state.userName = action.payload.userName;
       state.email = action.payload.email;
     },
     [userDataOnLoginButtonPress.rejected]: (state, action) => {
@@ -239,7 +241,7 @@ export const userSlice = createSlice({
 
         followrequestsent
       } = action.payload;
-      state.followers = followers;
+      state.follower = followers;
       state.following = following;
 
       state.followrequestSent = followrequestsent;

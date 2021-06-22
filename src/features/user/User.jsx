@@ -16,14 +16,15 @@ import {
 export default function User() {
   const { isUserLogIn, token } = useSelector((state) => state.auth);
   const {
-    name,
+    userName,
     email,
     userposts,
     notificationError,
     followSuggestionList,
     followrequestSent,
     followrequestGot,
-    following
+    following,
+    follower
   } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,8 +40,10 @@ export default function User() {
   return (
     <div className="user">
       <div className="user-data">
-        <div>Name: {name}</div>
+        <div>userName: {userName}</div>
         <div>EmailId: {email}</div>
+        <div>Follower: {follower.length}</div>
+        <div>Following: {following.length}</div>
       </div>
 
       <button
@@ -107,7 +110,7 @@ export default function User() {
           {userposts.map((eachpost) => {
             return (
               <div>
-                <div>{eachpost.user.name}</div>
+                <div>{eachpost.user.userName}</div>
                 <div>{eachpost.caption}</div>
               </div>
             );

@@ -6,16 +6,17 @@ import {
   commentSendButtonPressed,
   commentButtonPressed,
   postButtonPressed,
-  clearStatus
+  clearStatus,
+  postDeleteButtonPressed
 } from "./postslice";
-
+import TimeAgo from "react-timeago";
 export default function Posts() {
   const [post, setPost] = useState("");
   const [modal, setModal] = useState("");
   let { getPostStatus, postError, postData } = useSelector(
     (state) => state.post
   );
-  let { name, userId, following } = useSelector((state) => state.user);
+  let { userName, userId, following } = useSelector((state) => state.user);
   let dispatch = useDispatch();
   console.log(getPostStatus, postError, postData);
   useEffect(() => {
@@ -46,9 +47,10 @@ export default function Posts() {
                 postobj: {
                   caption: post,
                   likes: [],
+                  date: new Date(),
                   user: {
                     userID: userId,
-                    name: name
+                    userName: userName
                   }
                 }
               })
@@ -62,11 +64,16 @@ export default function Posts() {
         {postData.map((item) => {
           return (
             <div>
-              <div>{`"${item.user.name}"`}</div>
+              <div>{`"${item.user.userName}"`}</div>
               <div>{item.caption}</div>
+              <div>
+                <TimeAgo date={item.date} />
+              </div>
               <button
                 onClick={() =>
-                  dispatch(likeButtonPressed({ postID: item._id, name: name }))
+                  dispatch(
+                    likeButtonPressed({ postID: item._id, userName: userName })
+                  )
                 }
               >
                 {item.likes.length} like
@@ -79,6 +86,15 @@ export default function Posts() {
               >
                 Comment
               </button>
+              {item.user.userID === userId && (
+                <button
+                  onClick={() => {
+                    dispatch(postDeleteButtonPressed({ postdeleteobj: item }));
+                  }}
+                >
+                  delete
+                </button>
+              )}
               {modal === item._id && (
                 <Comment postID={item._id} setModal={setModal} postObj={item} />
               )}
@@ -95,7 +111,7 @@ export default function Posts() {
 function Comment({ postID, setModal, postObj }) {
   const [comment, setComment] = useState("");
   let { commentData } = useSelector((state) => state.post);
-  let { name, userId } = useSelector((state) => state.user);
+  let { userName, userId } = useSelector((state) => state.user);
 
   let dispatch = useDispatch();
   console.log("commentData", commentData);
@@ -114,7 +130,7 @@ function Comment({ postID, setModal, postObj }) {
         </button>
       </div>
       <div className="comment-onpost">
-        <div>{postObj.user.name}</div>
+        <div>{postObj.user.userName}</div>
         <div>{postObj.caption}</div>
       </div>
       <hr />
@@ -124,7 +140,7 @@ function Comment({ postID, setModal, postObj }) {
           .map((filterdata) => {
             return (
               <div style={{ border: "1px black solid", marginTop: "0.5rem" }}>
-                <div>{filterdata.user.name}</div>
+                <div>{filterdata.user.userName}</div>
                 <div>{filterdata.caption}</div>
               </div>
             );
@@ -149,7 +165,7 @@ function Comment({ postID, setModal, postObj }) {
                   reply: [],
                   user: {
                     userID: userId,
-                    name: name
+                    userName: userName
                   }
                 }
               })

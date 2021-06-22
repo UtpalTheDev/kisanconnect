@@ -52,14 +52,26 @@ export const postButtonPressed = createAsyncThunk(
     return response.data;
   }
 );
-
+export const postDeleteButtonPressed = createAsyncThunk(
+  "post/postDeleteButtonPressed",
+  async (deletingobj) => {
+    const response = await axios.delete(
+      "https://social-media-demo.utpalpati.repl.co/posts/delete",
+      { data: deletingobj }
+    );
+    //  console.log("l",response);
+    return response.data;
+  }
+);
 export const postslice = createSlice({
   name: "post",
   initialState: {
     getPostStatus: "idle",
     sendPostStatus: "idle",
+    deletePostStatus: "idle",
     commentPostStatus: "idle",
     commentGetStatus: "idle",
+    deletePostError: null,
     postError: null,
     commentData: [],
     postData: []
@@ -149,6 +161,20 @@ export const postslice = createSlice({
     [postButtonPressed.rejected]: (state, action) => {
       state.sendPostStatus = "failed";
       state.postError = action.error.message;
+    },
+    [postDeleteButtonPressed.pending]: (state, action) => {
+      state.deletePostStatus = "loading";
+    },
+    [postDeleteButtonPressed.fulfilled]: (state, action) => {
+      state.deletePostStatus = "succeeded";
+      const { postdeleteobj } = action.payload;
+      state.postData = state.postData.filter(
+        (postobj) => postobj._id !== postdeleteobj._id
+      );
+    },
+    [postDeleteButtonPressed.rejected]: (state, action) => {
+      state.deletePostStatus = "failed";
+      state.deletePostError = action.error.message;
     }
   }
 });

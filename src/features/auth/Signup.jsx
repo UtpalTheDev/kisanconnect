@@ -10,6 +10,7 @@ export default function Signup() {
   const dispatch = useDispatch();
 
   const [userName, setUserName] = useState("");
+  const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Signup() {
 
   async function signupHandler() {
     const signupOpearion = await dispatch(
-      signupButtonPressed({ userName, email, password })
+      signupButtonPressed({ name, userName, email, password })
     );
     if (!signupOpearion.error) {
       navigate("/login");
@@ -56,6 +57,17 @@ export default function Signup() {
               type="text"
               onChange={(e) => {
                 setUserName(e.target.value);
+              }}
+              class="input-text"
+              required
+            />
+            <span class="placeholder">UserName</span>
+          </label>
+          <label class="input md">
+            <input
+              type="text"
+              onChange={(e) => {
+                setname(e.target.value);
               }}
               class="input-text"
               required
