@@ -77,6 +77,7 @@ export const userDataOnUserPageLoad = createAsyncThunk(
       let response = await axios.get(
         "https://social-media-demo.utpalpati.repl.co/user/details"
       );
+      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -124,6 +125,20 @@ export const followingButtonPress = createAsyncThunk(
     }
   }
 );
+export const saveButtonPress = createAsyncThunk(
+  "user/saveButtonPress",
+  async (updatedobj, { rejectWithValue }) => {
+    try {
+      let response = await axios.post(
+        "https://social-media-demo.utpalpati.repl.co/user/update",
+        { updatedobj }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -132,6 +147,7 @@ export const userSlice = createSlice({
     userName: null,
     name: null,
     email: null,
+    bio: "",
     following: [],
     follower: [],
     followSuggestionList: null,
@@ -146,7 +162,9 @@ export const userSlice = createSlice({
     notificationStatus: "idle",
     notificationError: null,
     followSuggestionStatus: "idle",
-    followSuggestionError: null
+    followSuggestionError: null,
+    saveButtonPressStatus: "idle",
+    saveButtonPressError: null
   },
   reducers: {
     resetUser: (state) => {
@@ -154,7 +172,6 @@ export const userSlice = createSlice({
       state.name = null;
       state.userName = null;
       state.email = null;
-      state.following = [];
       state.follower = [];
       state.userposts = null;
       state.followSuggestionList = null;
@@ -167,6 +184,8 @@ export const userSlice = createSlice({
       state.userDataError = null;
       state.notificationStatus = "idle";
       state.notificationError = null;
+      state.saveButtonPressStatus = "idle";
+      state.saveButtonPressError = null;
     }
   },
   extraReducers: {
@@ -238,13 +257,15 @@ export const userSlice = createSlice({
       const {
         followers,
         following,
-
-        followrequestsent
+        followrequestsent,
+        bio,
+        name
       } = action.payload;
       state.follower = followers;
       state.following = following;
-
       state.followrequestSent = followrequestsent;
+      state.name = name;
+      state.bio = bio;
     },
     [userDataOnUserPageLoad.rejected]: (state, action) => {
       state.userDataStatus = "failed";
@@ -258,7 +279,7 @@ export const userSlice = createSlice({
       state.followrequestGot = action.payload.followrequestgot;
     },
     [followRequestDataOnNotificationPageLoad.rejected]: (state, action) => {
-      state.userDatatStatus = "failed";
+      state.userDataStatus = "failed";
       // state.followSuggestionError = action.payload.message;
     },
     [followRequestConfirmButtonPress.pending]: (state) => {
@@ -277,7 +298,7 @@ export const userSlice = createSlice({
     },
     [followRequestConfirmButtonPress.rejected]: (state, action) => {
       state.userDatatStatus = "failed";
-      const { _id, userName } = action.payload.requesterobj;
+      const { _id } = action.payload.requesterobj;
       state.followrequestGot = state.followrequestGot.filter(
         (item) => item._id !== _id
       );
@@ -293,7 +314,23 @@ export const userSlice = createSlice({
       );
     },
     [followingButtonPress.rejected]: (state, action) => {
-      state.userDatatStatus = "failed";
+      state.userDataStatus = "failed";
+    },
+    [saveButtonPress.pending]: (state) => {
+      state.saveButtonPressStatus = "loading";
+      state.saveButtonPressError = null;
+    },
+    [saveButtonPress.fulfilled]: (state, action) => {
+      state.saveButtonPressStatus = "succeeded";
+      let { userName, email, bio, name } = action.payload;
+      state.userName = userName;
+      state.email = email;
+      state.bio = bio;
+      state.name = name;
+    },
+    [saveButtonPress.rejected]: (state, action) => {
+      state.saveButtonPressStatus = "failed";
+      state.saveButtonPressError = action.payload.message;
     }
   }
 });

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 import { resetPost } from "../posts/postslice";
+import { Link } from "react-router-dom";
 import {
   userSpecificPostOnLoad,
   resetUser,
@@ -56,6 +57,7 @@ export default function User() {
       >
         logout
       </button>
+      <Link to="/user/edit">edit</Link>
       <hr />
       {followSuggestionList !== null &&
         followSuggestionList.map((item) => {

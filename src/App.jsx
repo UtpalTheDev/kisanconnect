@@ -14,6 +14,7 @@ import User from "./features/user/User";
 import Notification from "./features/user/Notification";
 import Search from "./features/search/Search";
 import UserProfile from "./features/search/UserProfile";
+import UserEdit from "./features/user/UserEdit";
 export default function App() {
   console.log("app");
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ export default function App() {
         <PrivateRoute path="/" element={<Posts />} />
         <PrivateRoute path="/:userName" element={<UserProfile />} />
         <PrivateRoute path="/user" element={<User />} />
+        <PrivateRoute path="user/edit" element={<UserEdit />} />
         <PrivateRoute path="/notification" element={<Notification />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

@@ -61,7 +61,19 @@ export const searchSlice = createSlice({
     followingUserPostStatus: "idle",
     followingUserPostError: null
   },
-  reducers: {},
+  reducers: {
+    clearMatchList: (state) => {
+      state.matchlist = [];
+    },
+    userProfileDetailReset: (state) => {
+      state.userProfileDetail = null;
+      state.followingUserPost = [];
+      state.userProfileStatus = "idle";
+      state.userProfileError = null;
+      state.followingUserPostStatus = "idle";
+      state.followingUserPostError = null;
+    }
+  },
   extraReducers: {
     [userSearching.pending]: (state) => {
       state.matchlistStatus = "loading";
@@ -99,5 +111,5 @@ export const searchSlice = createSlice({
     }
   }
 });
-
+export const { clearMatchList, userProfileDetailReset } = searchSlice.actions;
 export default searchSlice.reducer;

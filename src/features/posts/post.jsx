@@ -7,12 +7,16 @@ import {
   commentButtonPressed,
   postButtonPressed,
   clearStatus,
+  likeDataOnTextPressed,
   postDeleteButtonPressed
 } from "./postslice";
+import Search from "../search/Search";
 import TimeAgo from "react-timeago";
+
 export default function Posts() {
   const [post, setPost] = useState("");
-  const [modal, setModal] = useState("");
+  const [commentModal, setCommentModal] = useState("");
+  const [likeModal, setLikeModal] = useState("");
   let { getPostStatus, postError, postData } = useSelector(
     (state) => state.post
   );
@@ -33,6 +37,7 @@ export default function Posts() {
   }, [following]);
   return (
     <>
+      <Search />
       <div>
         <input
           value={post}
@@ -76,12 +81,20 @@ export default function Posts() {
                   )
                 }
               >
-                {item.likes.length} like
+                <span role="img">❤️</span>
               </button>
+              <span
+                onClick={() => {
+                  setLikeModal(item._id);
+                  dispatch(likeDataOnTextPressed(item._id));
+                }}
+              >
+                {item.likes.length} Likes
+              </span>
               <button
                 onClick={() => {
                   dispatch(commentButtonPressed(item._id));
-                  setModal(item._id);
+                  setCommentModal(item._id);
                 }}
               >
                 Comment
@@ -95,8 +108,19 @@ export default function Posts() {
                   delete
                 </button>
               )}
-              {modal === item._id && (
-                <Comment postID={item._id} setModal={setModal} postObj={item} />
+              {commentModal === item._id && (
+                <Comment
+                  postID={item._id}
+                  setCommentModal={setCommentModal}
+                  postObj={item}
+                />
+              )}
+              {likeModal === item._id && (
+                <Like
+                  postID={item._id}
+                  setLikeModal={setLikeModal}
+                  postObj={item}
+                />
               )}
 
               <hr />
@@ -108,7 +132,7 @@ export default function Posts() {
   );
 }
 
-function Comment({ postID, setModal, postObj }) {
+function Comment({ postID, setCommentModal, postObj }) {
   const [comment, setComment] = useState("");
   let { commentData } = useSelector((state) => state.post);
   let { userName, userId } = useSelector((state) => state.user);
@@ -123,7 +147,7 @@ function Comment({ postID, setModal, postObj }) {
         <button
           className="comment-header-backbutton"
           onClick={() => {
-            setModal("");
+            setCommentModal("");
           }}
         >
           back
@@ -177,5 +201,33 @@ function Comment({ postID, setModal, postObj }) {
         </button>
       </div>
     </div>
+  );
+}
+
+function Like({ postID, setLikeModal, postObj }) {
+  let { likeData } = useSelector((state) => state.post);
+
+  return (
+    <>
+      <div className="like">
+        <div className="like-header">
+          Likes
+          <button
+            className="like-header-backbutton"
+            onClick={() => {
+              setLikeModal("");
+            }}
+          >
+            back
+          </button>
+          <div>
+            {likeData.length > 0 &&
+              likeData.map((liker) => {
+                return <div>{liker.userName}</div>;
+              })}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

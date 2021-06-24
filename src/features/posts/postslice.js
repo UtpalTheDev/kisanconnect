@@ -63,6 +63,17 @@ export const postDeleteButtonPressed = createAsyncThunk(
     return response.data;
   }
 );
+export const likeDataOnTextPressed = createAsyncThunk(
+  "post/likeDataOnTextPressed",
+  async (postId) => {
+    console.log(postId);
+    const response = await axios.post(
+      "https://social-media-demo.utpalpati.repl.co/posts/like_data",
+      { postId }
+    );
+    return response.data;
+  }
+);
 export const postslice = createSlice({
   name: "post",
   initialState: {
@@ -74,7 +85,9 @@ export const postslice = createSlice({
     deletePostError: null,
     postError: null,
     commentData: [],
-    postData: []
+    postData: [],
+    likeData: [],
+    likeGetStatus: []
   },
   reducers: {
     clearStatus: (state) => {
@@ -91,6 +104,7 @@ export const postslice = createSlice({
       state.postError = null;
       state.commentData = [];
       state.postData = [];
+      state.likeData = [];
     }
   },
   extraReducers: {
@@ -175,6 +189,25 @@ export const postslice = createSlice({
     [postDeleteButtonPressed.rejected]: (state, action) => {
       state.deletePostStatus = "failed";
       state.deletePostError = action.error.message;
+    },
+
+    [likeDataOnTextPressed.pending]: (state, action) => {
+      state.likeDataOnTextPressedStatus = "loading";
+      state.likeData = [];
+    },
+    [likeDataOnTextPressed.fulfilled]: (state, action) => {
+      state.likeDataOnTextPressedStatus = "succeeded";
+      let { postId, likeuserdata } = action.payload;
+      state.likeData = likeuserdata;
+      state.postData = state.postData.map((item) => {
+        if (item._id === postId) {
+          item.likes = likeuserdata.map((user) => user._id);
+        }
+        return item;
+      });
+    },
+    [likeDataOnTextPressed.rejected]: (state, action) => {
+      state.likeDataOnTextPressedStatus = "failed";
     }
   }
 });

@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TimeAgo from "react-timeago";
+import { followButtonPress, followingButtonPress } from "../user/userSlice";
 import {
-  userSearching,
   userProfile,
-  followingUserPostCall
+  followingUserPostCall,
+  userProfileDetailReset
 } from "./searchSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function UserProfile() {
   //const [userName, setUserName] = useState("");
   let { userProfileDetail, followingUserPost } = useSelector(
     (state) => state.search
+  );
+  let { followrequestSent, following, userId } = useSelector(
+    (state) => state.user
   );
   let dispatch = useDispatch();
   let { userName } = useParams();
@@ -19,6 +23,7 @@ export default function UserProfile() {
   useEffect(() => {
     dispatch(userProfile(userName));
     dispatch(followingUserPostCall(userName));
+    return dispatch(userProfileDetailReset());
   }, []);
   return (
     <>
@@ -30,19 +35,74 @@ export default function UserProfile() {
           <hr />
         </div>
       )}
-      {followingUserPost.length > 0 && (
-        <div>
-          {followingUserPost.map((eachpost) => {
-            return (
-              <div>
-                <div>{eachpost.user.userName}</div>
-                <div>{eachpost.caption}</div>
-                <TimeAgo date={eachpost.date} />
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {console.log("ll", userProfileDetail?._id !== userId)}
+
+      {userProfileDetail?._id &&
+        followrequestSent.find(
+          (pendingobj) => pendingobj._id === userProfileDetail._id
+        ) && (
+          <button
+            onClick={() => {
+              dispatch(
+                followButtonPress({ followerId: userProfileDetail._id })
+              );
+            }}
+          >
+            Requested
+          </button>
+        )}
+
+      {userProfileDetail?._id &&
+        userProfileDetail._id !== userId &&
+        !followrequestSent.find(
+          (pendingobj) => pendingobj._id === userProfileDetail._id
+        ) &&
+        !following.find(
+          (followingobj) => followingobj._id === userProfileDetail._id
+        ) && (
+          <button
+            onClick={() => {
+              dispatch(
+                followButtonPress({ followerId: userProfileDetail._id })
+              );
+            }}
+          >
+            Follow
+          </button>
+        )}
+
+      {userProfileDetail?._id &&
+        following.find(
+          (followingobj) => followingobj._id === userProfileDetail._id
+        ) && (
+          <button
+            onClick={() => {
+              dispatch(
+                followingButtonPress({ followingId: userProfileDetail._id })
+              );
+            }}
+          >
+            Following
+          </button>
+        )}
+
+      {userProfileDetail?._id &&
+        following.find(
+          (followingobj) => followingobj._id === userProfileDetail._id
+        ) &&
+        followingUserPost.length > 0 && (
+          <div>
+            {followingUserPost.map((eachpost) => {
+              return (
+                <div>
+                  <div>{eachpost.user.userName}</div>
+                  <div>{eachpost.caption}</div>
+                  <TimeAgo date={eachpost.date} />
+                </div>
+              );
+            })}
+          </div>
+        )}
     </>
   );
 }

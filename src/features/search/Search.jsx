@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userSearching } from "./searchSlice";
+import { userSearching, clearMatchList } from "./searchSlice";
 export default function Search() {
   //const [userName, setUserName] = useState("");
   let { matchlist } = useSelector((state) => state.search);
+  let { userId } = useSelector((state) => state.user);
+  let navigate = useNavigate();
   let dispatch = useDispatch();
   //console.log(userName)
   const debounce = (fn, delay) => {
@@ -21,9 +23,14 @@ export default function Search() {
   const debounceCaller = debounce((userName) => {
     dispatch(userSearching(userName));
   }, 1000);
+
+  useEffect(() => {
+    return dispatch(clearMatchList());
+  }, []);
   return (
     <>
       <input
+        placeholder="search"
         onChange={(e) => {
           //setUserName(e.target.value);
 
@@ -34,9 +41,15 @@ export default function Search() {
         <div>
           {matchlist.map((matchuser) => {
             return (
-              <Link to={`/${matchuser.userName}`}>
-                <div>{matchuser.userName}</div>
-              </Link>
+              <>
+                {matchuser._id !== userId ? (
+                  <Link to={`/${matchuser.userName}`}>
+                    <div>{matchuser.userName}</div>
+                  </Link>
+                ) : (
+                  <Link to="/user">{matchuser.userName}</Link>
+                )}
+              </>
             );
           })}
         </div>
