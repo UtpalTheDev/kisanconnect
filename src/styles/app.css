@@ -1,7 +1,16 @@
+@import "https://use.fontawesome.com/releases/v5.15.3/css/all.css";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined";
+
 body {
     font-family: "Open Sans", sans-serif;
+    font-size: 16px;
   }
-  
+  .App{
+    min-height:100vh;
+    width:100%;
+    overflow:hidden;
+  }
   .app-header {
     text-align: center;
   }
@@ -48,4 +57,3 @@ body {
     width: 100%;
     background: white;
   }
-  
