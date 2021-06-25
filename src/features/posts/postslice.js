@@ -170,7 +170,7 @@ export const postslice = createSlice({
     [postButtonPressed.fulfilled]: (state, action) => {
       state.sendPostStatus = "succeeded";
       const { post } = action.payload;
-      state.postData.push(post);
+      state.postData.unshift(post);
     },
     [postButtonPressed.rejected]: (state, action) => {
       state.sendPostStatus = "failed";
