@@ -29,13 +29,13 @@ export default function Login() {
     dispatch(LogInWithCredentials({ email, password }));
   }
   return (
-    <div className="login">
+    <div class="login bg-red text-red">
       <div className="login-sideimg">
         {" "}
         <img src={""} style={{ width: "100%", height: "100%" }} alt="sideimg" />
       </div>
 
-      <div className="form-container">
+      <div className="form-container bg-red text-red">
         <h3>Login</h3>
 
         <form

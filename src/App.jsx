@@ -1,4 +1,5 @@
-import "./styles.css";
+import './styles/index.css';
+import "./styles/app.css";
 import { useEffect } from "react";
 import Posts from "./features/posts/post";
 import axios from "axios";
@@ -44,8 +45,8 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      <h1 className="app-header">utpal's box</h1>
+    <div className="App ">
+      <h1 class="text-red-500">utpal's box</h1>
       <div className="app-body">Put your app body here</div>
       <Link to="/user">user</Link>
       <Link to="/"> posts</Link>
