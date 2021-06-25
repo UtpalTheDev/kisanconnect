@@ -7,7 +7,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginWithToken, logOut } from "./features/auth/authSlice";
-
+import logo from "./assets/logo.svg"
 import PrivateRoute from "./features/auth/PriavteRoute";
 import Login from "./features/auth/Login";
 import Signup from "./features/auth/Signup";
@@ -16,6 +16,7 @@ import Notification from "./features/user/Notification";
 import Search from "./features/search/Search";
 import UserProfile from "./features/search/UserProfile";
 import UserEdit from "./features/user/UserEdit";
+import Navigator from "./components/Navigator"
 export default function App() {
   console.log("app");
   const navigate = useNavigate();
@@ -46,12 +47,11 @@ export default function App() {
 
   return (
     <div className="App ">
-      <h1 class="text-red-500">utpal's box</h1>
-      <div className="app-body">Put your app body here</div>
-      <Link to="/user">user</Link>
-      <Link to="/"> posts</Link>
-      <Link to="/notification"> notification</Link>
-      <Link to="/search"> search</Link>
+      <nav className="flex items-center">
+        <img src={logo} className="w-10 h-10 rounded-full m-1"/>
+        <span className="px-1 text-lg self-end py-0 my-0">KisanConnect</span>
+      </nav>
+      <Navigator/>
 
       <Routes>
         <PrivateRoute path="/" element={<Posts />} />
