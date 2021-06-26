@@ -13,7 +13,8 @@ import {
 } from "./postslice";
 import Search from "../search/Search";
 import TimeAgo from "react-timeago";
-
+import Like from "./Like";
+import Comment from "./Comment";
 export default function Posts() {
   const [post, setPost] = useState("");
   const [commentModal, setCommentModal] = useState("");
@@ -37,9 +38,9 @@ export default function Posts() {
     // }
   }, [following]);
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-yellow-50">
       
-      <div className="w-full h-auto shadow-md p-1.5">
+      <div className="w-full h-auto shadow-md bg-white p-1.5 rounded-b-xl">
         <textarea
           value={post}
           rows=""
@@ -73,7 +74,7 @@ export default function Posts() {
         </button>
       </div>
       
-      <div className="px-2 py-4 flex flex-col h-full bg-yellow-50">
+      <div className="px-2 py-4 flex flex-col h-full ">
         {postData.map((item) => {
           return (
             <div className="relative px-2 py-2 my-3 rounded-lg shadow-md bg-white">
@@ -99,7 +100,7 @@ export default function Posts() {
                 </span>
               </button>
               <span
-              className="font-semibold px-1"
+              className="text-sm px-1"
                 onClick={() => {
                   setLikeModal(item._id);
                   dispatch(likeDataOnTextPressed(item._id));
@@ -157,102 +158,4 @@ export default function Posts() {
   );
 }
 
-function Comment({ postID, setCommentModal, postObj }) {
-  const [comment, setComment] = useState("");
-  let { commentData } = useSelector((state) => state.post);
-  let { userName, userId } = useSelector((state) => state.user);
 
-  let dispatch = useDispatch();
-  console.log("commentData", commentData);
-
-  return (
-    <div className="comment w-screen">
-      <div className="comment-header">
-        Comments
-        <button
-          className="comment-header-backbutton"
-          onClick={() => {
-            setCommentModal("");
-          }}
-        >
-          back
-        </button>
-      </div>
-      <div className="comment-onpost">
-        <div>{postObj.user.userName}</div>
-        <div>{postObj.caption}</div>
-      </div>
-      <hr />
-      <div className="comment-feed">
-        {commentData
-          .filter((commentobj) => commentobj.postID === postID)
-          .map((filterdata) => {
-            return (
-              <div style={{ border: "1px black solid", marginTop: "0.5rem" }}>
-                <div>{filterdata.user.userName}</div>
-                <div>{filterdata.caption}</div>
-              </div>
-            );
-          })}
-      </div>
-      <div className="comment-input">
-        <input
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-        />
-
-        <button
-          onClick={() => {
-            dispatch(
-              commentSendButtonPressed({
-                commentobj: {
-                  postID: postID,
-                  caption: comment,
-                  likes: [],
-                  reply: [],
-                  user: {
-                    userID: userId,
-                    userName: userName
-                  }
-                }
-              })
-            );
-            setComment("");
-          }}
-        >
-          Comment
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function Like({ postID, setLikeModal, postObj }) {
-  let { likeData } = useSelector((state) => state.post);
-
-  return (
-    <>
-      <div className="like">
-        <div className="like-header">
-          Likes
-          <button
-            className="like-header-backbutton"
-            onClick={() => {
-              setLikeModal("");
-            }}
-          >
-            back
-          </button>
-          <div>
-            {likeData.length > 0 &&
-              likeData.map((liker) => {
-                return <div>{liker.userName}</div>;
-              })}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
