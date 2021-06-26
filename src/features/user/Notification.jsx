@@ -13,13 +13,13 @@ export default function Notification() {
     dispatch(followRequestDataOnNotificationPageLoad());
     dispatch(notificationOnLoad());
   }, [follower]);
-  console.log("noti", followrequestGot);
+  // console.log("noti", followrequestGot);
   return (
-    <>
+    <div className="bg-white p-2">
       {followrequestGot !== null &&
         followrequestGot.map((eachrequest) => {
           return (
-            <div style={{ border: "1px solid black" }}>
+            <div className="shadow-md py-2 px-2 bg-white">
               {eachrequest.userName}
               <button
                 onClick={() => {
@@ -35,10 +35,14 @@ export default function Notification() {
             </div>
           );
         })}
+      
       {notification !== null &&
         notification.map((item) => {
-          return <div>{item}</div>;
+          return (
+          <div className="border-b py-2 px-2 my-2 max-h-14 bg-white">
+            {item}
+          </div>);
         })}
-    </>
+    </div>
   );
 }

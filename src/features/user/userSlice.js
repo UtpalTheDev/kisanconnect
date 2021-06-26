@@ -151,7 +151,7 @@ export const userSlice = createSlice({
     following: [],
     follower: [],
     followSuggestionList: null,
-    userposts: null,
+    userposts: [],
     followrequestGot: null,
     followrequestSent: [],
     userpostsStatus: "idle",
@@ -173,7 +173,7 @@ export const userSlice = createSlice({
       state.userName = null;
       state.email = null;
       state.follower = [];
-      state.userposts = null;
+      state.userposts = [];
       state.followSuggestionList = null;
       state.followrequestGot = [];
       state.followrequestSent = [];
