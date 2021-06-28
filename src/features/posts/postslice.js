@@ -155,7 +155,7 @@ export const postslice = createSlice({
       state.commentGetStatus = "succeeded";
       const { comment } = action.payload;
       state.commentData = state.commentData.filter(
-        (item) => item.postID !== comment[0].postID
+        (item) => item.postID !== comment[0]?.postID
       );
       state.commentData.push(...comment);
     },
