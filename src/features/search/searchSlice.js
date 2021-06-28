@@ -48,6 +48,16 @@ export const followingUserPostCall = createAsyncThunk(
     }
   }
 );
+export const followingUserLikeButtonPressed = createAsyncThunk(
+  "post/followingUserLikeButtonPressed",
+  async (likeupdateobj) => {
+    const response = await axios.post(
+      "https://social-media-demo.utpalpati.repl.co/posts/likes",
+      likeupdateobj
+    );
+    return response.data;
+  }
+);
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
@@ -59,7 +69,8 @@ export const searchSlice = createSlice({
     userProfileStatus: "idle",
     userProfileError: null,
     followingUserPostStatus: "idle",
-    followingUserPostError: null
+    followingUserPostError: null,
+    followingUserLikeButtonPressedStatus:"idle"
   },
   reducers: {
     clearMatchList: (state) => {
@@ -72,7 +83,10 @@ export const searchSlice = createSlice({
       state.userProfileError = null;
       state.followingUserPostStatus = "idle";
       state.followingUserPostError = null;
-    }
+      state.followingUserLikeButtonPressedStatus="idle"
+
+    },
+
   },
   extraReducers: {
     [userSearching.pending]: (state) => {
@@ -108,6 +122,17 @@ export const searchSlice = createSlice({
     [followingUserPostCall.rejected]: (state, action) => {
       state.followingUserPostStatus = "failed";
       state.followingUserPostError = action.payload.message;
+    },
+    [followingUserLikeButtonPressed.pending]: (state) => {
+      state.followingUserLikeButtonPressedStatus = "loading";
+    },
+    [followingUserLikeButtonPressed.fulfilled]: (state, action) => {
+      state.followingUserLikeButtonPressedStatus = "succeeded";
+      
+    },
+    [followingUserLikeButtonPressed.rejected]: (state, action) => {
+      state.followingUserLikeButtonPressedStatus = "failed";
+      
     }
   }
 });
