@@ -199,6 +199,7 @@ export const userSlice = createSlice({
       state.userName = action.payload.userName;
       state.email = action.payload.email;
       state.following=action.payload.following
+      state.followrequestSent = action.payload.followrequestsent;
     },
     [userDataOnLoginButtonPress.rejected]: (state, action) => {
       state.userDataStatus = "failed";
