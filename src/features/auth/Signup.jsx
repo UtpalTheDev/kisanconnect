@@ -1,6 +1,6 @@
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import logo from "../../assets/logo.svg"
 // import treebanner from "./assets/treebanner.png";
 import { useSelector, useDispatch } from "react-redux";
 import { signupButtonPressed, clearError } from "./authSlice";
@@ -10,7 +10,7 @@ export default function Signup() {
   const dispatch = useDispatch();
 
   const [userName, setUserName] = useState("");
-  const [name, setname] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
@@ -36,77 +36,85 @@ export default function Signup() {
     }
   }
   return (
-    <div className="signup">
-      <div className="signup-sideimg">
-        {" "}
-        <img src={""} style={{ width: "100%", height: "100%" }} alt="sideimg" />
-      </div>
 
-      <div className="form-container">
-        <h3>Signup</h3>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            signupHandler();
-          }}
-          className="form"
-        >
-          <label class="input md">
-            <input
-              type="text"
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-              class="input-text"
-              required
-            />
-            <span class="placeholder">UserName</span>
-          </label>
-          <label class="input md">
-            <input
-              type="text"
-              onChange={(e) => {
-                setname(e.target.value);
-              }}
-              class="input-text"
-              required
-            />
-            <span class="placeholder">Name</span>
-          </label>
-          <label class="input md">
-            <input
-              type="email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              class="input-text"
-              required
-            />
-            <span class="placeholder">Email</span>
-          </label>
-          <label class="input md">
-            <input
-              type="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              class="input-text"
-              required
-            />
-            <span class="placeholder">password</span>
-          </label>
-          <div className="form-action">
-            <button class="secondary-button md">
-              <Link to="/login">Login</Link>
-            </button>
-            <button type="submit" class="secondary-button md">
-              Signup
-            </button>
-          </div>
-        </form>
-        <div style={{ color: "red" }}>{signupError}</div>
-      </div>
+    <div class="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-screen flex flex-col md:flex-row sm:justify-between items-center">
+    <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow flex-col items-center mb-2">
+    <img src={logo} className="w-3/6 max-w-md py-2" alt="sideimg" />
+    <span className="text-xl py-3">KisanConnect</span>
     </div>
+  
+    <div className="form-container bg-red text-red align-center px-8">
+      <div className="text-center text-xl font-semibold">SignUp</div>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          signupHandler();
+        }}
+        className="form"
+      >
+        <div className="py-1">
+        <div className="pr-2">UserName</div>
+          <input
+            type="text"
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            required
+          />
+        </div>
+        <div className="py-1">
+        <div className="pr-2">Name</div>
+          <input
+            type="text"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            required
+          />
+        </div>
+        <div className="py-1">
+        <div className="pr-2">Email</div>
+          <input
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            required
+          />
+        </div>
+          
+          <div className="py-1">
+          <div class="pr-1">Password</div>
+          <input
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            required
+          />
+          </div>
+          
+          
+        
+        <div className="py-3">
+        <button type="submit" className="bg-gray-300 px-2 rounded-md py-0.5 mx-2">
+            Login
+          </button>
+          <button 
+          className="bg-green-100 text-green-500 px-2 rounded-md py-0.5">
+            <Link to="/signup">Signup</Link>
+          </button>
+          
+        </div>
+      </form>
+      <div style={{ color: "red" }}>{signupError}</div>
+    </div>
+  </div>
+
   );
 }
