@@ -4,6 +4,7 @@ import Comment from "./Comment";
 import TimeAgo from "react-timeago"
 import {useSelector,useDispatch} from "react-redux"
 import {Link} from "react-router-dom"
+import {BiHeart} from "react-icons/bi"
 import {
   likeButtonPressed,
   commentButtonPressed,
@@ -25,7 +26,7 @@ export default function PostComponent({eachpost}){
         <div className="absolute right-1 top-1 text-xs text-gray-300 font-normal">
           <TimeAgo date={eachpost.date} />
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full items-center">
         <button
           className="flex items-center"
           onClick={() =>
@@ -34,9 +35,7 @@ export default function PostComponent({eachpost}){
             )
           }
         >
-          <span class="material-icons-outlined">
-          favorite
-          </span>
+          <BiHeart className="text-2xl"/>
         </button>
         <span
         className="text-sm px-1"
