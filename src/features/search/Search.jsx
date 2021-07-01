@@ -28,7 +28,7 @@ export default function Search() {
     return dispatch(clearMatchList());
   }, []);
   return (
-    <div className="px-1 py-2">
+    <div className="px-1 py-2 sm:col-span-2 md:col-span-3">
       <input
       className="w-full border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:border-transparent"
         placeholder="search"
@@ -38,6 +38,7 @@ export default function Search() {
           debounceCaller(e.target.value);
         }}
       />
+      <div>
       {matchlist.length > 0 && (
         <div className="pt-4 px-1">
           {matchlist.map((matchuser) => {
@@ -57,6 +58,8 @@ export default function Search() {
           })}
         </div>
       )}
+      </div>
+
     </div>
   );
 }

@@ -50,7 +50,7 @@ export default function UserProfile() {
   }
   },[followingUserLikeButtonPressedStatus])
   return (
-    <div className="user relative min-h-screen">
+    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3">
       {userProfileDetail !== null && (
 
         <div className="user-data px-2 pt-4 pb-2 bg-white">

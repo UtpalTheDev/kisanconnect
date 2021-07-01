@@ -53,7 +53,7 @@ export default function User() {
   console.log("followrequestgot", followrequestGot);
 
   return (
-    <div className="user relative min-h-screen">
+    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3">
       <div className="user-data px-2 pt-4 pb-2 bg-white">
         <div className="flex items-center"><BsFillLockFill className="text-sm"/>
         <span className="text-lg">{userName}</span>

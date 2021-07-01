@@ -16,7 +16,7 @@ export default function Notification() {
   }, [follower]);
   // console.log("noti", followrequestGot);
   return (
-    <div className="bg-white p-2">
+    <div className="bg-white p-2 sm:col-span-2 md:col-span-3">
       {followrequestGot !== null &&
         followrequestGot.map((eachrequest) => {
           return (
