@@ -38,8 +38,7 @@ export default function Posts() {
     // }
   }, [following]);
   return (
-    <div className="sm:grid sm:grid-cols-3 md:grid-cols-5 ">
-    <SideNavigator/>  
+ 
     <div className="h-screen bg-yellow-50 sm:col-span-2 md:col-span-3">
       
       <div className="w-full h-auto shadow-md bg-white p-1.5 rounded-b-xl">
@@ -88,8 +87,7 @@ export default function Posts() {
       </div>
       
     </div>
-    <div className="hidden md:flex">11</div>
-    </div>
+
    
   );
 }
