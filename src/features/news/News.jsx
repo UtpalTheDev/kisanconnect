@@ -19,11 +19,11 @@ export default function News(){
                 newsData.length>0 && 
                 newsData.map(newsobj=>{
                     return(
-                        <div className="py-2 text-sm">
+                        <a href={newsobj.url}className="py-2 text-sm block">
                             <img src={newsobj.image_url} className="w-full rounded-md"/>
                             <div className="font-semibold">{newsobj.title}</div>
                             <div className="text-xs pt-2">{newsobj.description}</div>
-                        </div>    
+                        </a>    
                     )
                 })
             }
