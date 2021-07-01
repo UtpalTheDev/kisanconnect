@@ -14,6 +14,7 @@ import {
 import Search from "../search/Search";
 import Like from "./Like";
 import Comment from "./Comment";
+import SideNavigator from "../../components/SideNavigator"
 export default function Posts() {
   const [post, setPost] = useState("");
   const [commentModal, setCommentModal] = useState("");
@@ -37,7 +38,9 @@ export default function Posts() {
     // }
   }, [following]);
   return (
-    <div className="h-screen bg-yellow-50">
+    <div className="sm:grid sm:grid-cols-3 md:grid-cols-5 ">
+    <SideNavigator/>  
+    <div className="h-screen bg-yellow-50 sm:col-span-2 md:col-span-3">
       
       <div className="w-full h-auto shadow-md bg-white p-1.5 rounded-b-xl">
         <textarea
@@ -51,8 +54,9 @@ export default function Posts() {
             setPost(e.target.value);
           }}
         />
+        <div className="flex justify-end">
         <button
-        className="relative left-3/4 rounded-md block w-16 bg-blue-100 m-2 p-0.5"
+        className=" rounded-md block w-16 bg-blue-100 m-2 p-0.5"
           onClick={() => {
             dispatch(
               postButtonPressed({
@@ -71,6 +75,8 @@ export default function Posts() {
         >
           Post
         </button>
+        </div>
+        
       </div>
       
       <div className="px-2 py-4 flex flex-col h-full ">
@@ -82,6 +88,9 @@ export default function Posts() {
       </div>
       
     </div>
+    <div className="hidden md:flex">11</div>
+    </div>
+   
   );
 }
 
