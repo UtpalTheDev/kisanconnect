@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LogInWithCredentials } from "./authSlice";
 import { userDataOnLoginButtonPress } from "../user/userSlice";
+import logo from "../../assets/logo.svg"
 // import treebanner from "./assets/treebanner.png";
 export default function Login() {
   let { isUserLogIn, getTokenError } = useSelector((state) => state.auth);
@@ -29,14 +30,14 @@ export default function Login() {
     dispatch(LogInWithCredentials({ email, password }));
   }
   return (
-    <div class="login bg-red text-red">
-      <div className="login-sideimg">
-        {" "}
-        <img src={""} style={{ width: "100%", height: "100%" }} alt="sideimg" />
+    <div class="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-screen flex flex-col md:flex-row sm:justify-between items-center">
+      <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow flex-col items-center mb-2">
+      <img src={logo} className="w-3/6 max-w-md py-2" alt="sideimg" />
+      <span className="text-xl py-3">KisanConnect</span>
       </div>
-
-      <div className="form-container bg-red text-red">
-        <h3>Login</h3>
+    
+      <div className="form-container bg-red text-red align-center px-8">
+        <div className="text-center text-xl font-semibold">Login</div>
 
         <form
           onSubmit={(e) => {
@@ -45,33 +46,37 @@ export default function Login() {
           }}
           className="form"
         >
-          <label class="input md">
+          <div className="py-1">
+          <div className="pr-2">Email</div>
             <input
               type="email"
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
-              class="input-text"
+              className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
               required
             />
-            <span class="placeholder">Email</span>
-          </label>
-          <label class="input md">
+          </div>
+            
+            <div className="py-1">
+            <div class="pr-1">Password</div>
             <input
               type="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              class="input-text"
+              className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
               required
             />
-            <span class="placeholder">Password</span>
-          </label>
-          <div className="form-action">
-            <button class="secondary-button md">
+            </div>
+            
+            
+          
+          <div className="py-3">
+            <button className="bg-gray-300 px-2 rounded-md py-0.5 mx-2">
               <Link to="/signup">Signup</Link>
             </button>
-            <button type="submit" class="secondary-button md">
+            <button type="submit" className="bg-green-100 text-green-500 px-2 rounded-md py-0.5">
               Login
             </button>
           </div>
@@ -79,5 +84,6 @@ export default function Login() {
         <div style={{ color: "red" }}>{getTokenError}</div>
       </div>
     </div>
+  
   );
 }

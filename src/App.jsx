@@ -23,7 +23,7 @@ export default function App() {
   console.log("app");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const {isUserLogIn}=useSelector(state=>state.auth)
   useEffect(() => {
     const { isUserLoggedIn, localtoken } =
       JSON.parse(localStorage?.getItem("login")) || {};
@@ -49,14 +49,16 @@ export default function App() {
 
   return (
     <div className="App ">
-      <nav className="flex items-center">
+      <nav>
+      <Link to="/" className=" block flex items-center">
         <img src={logo} className="w-10 h-10 rounded-full m-1"/>
         <span className="px-1 text-lg self-end py-0 my-0">KisanConnect</span>
+      </Link>
       </nav>
 
       <div className="sm:grid sm:grid-cols-3 md:grid-cols-5 ">
-      <SideNavigator/>
-      <Navigator/>
+      {isUserLogIn && <SideNavigator/>}
+      {isUserLogIn && <Navigator/>}
 
       <Routes>
         <PrivateRoute path="/" element={<Posts />} />
@@ -68,7 +70,7 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <PrivateRoute path="/search" element={<Search />} />
       </Routes>
-      <News/>
+      {isUserLogIn && <News/>}
       </div>
    
     </div>
