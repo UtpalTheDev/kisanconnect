@@ -39,7 +39,7 @@ export default function Posts() {
   }, [following]);
   return (
  
-    <div className="h-screen bg-yellow-50 sm:col-span-2 md:col-span-3">
+    <div className="min-h-screen bg-yellow-50 sm:col-span-2 md:col-span-3">
       
       <div className="w-full h-auto shadow-md bg-white p-1.5 rounded-b-xl">
         <textarea

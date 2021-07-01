@@ -37,7 +37,7 @@ export default function Signup() {
   }
   return (
 
-    <div class="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-screen flex flex-col md:flex-row sm:justify-between items-center">
+    <div class="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-screen flex flex-col md:flex-row sm:justify-between items-center h-screen overflow-y-scroll pb-2">
     <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow flex-col items-center mb-2">
     <img src={logo} className="w-3/6 max-w-md py-2" alt="sideimg" />
     <span className="text-xl py-3">KisanConnect</span>
@@ -102,12 +102,13 @@ export default function Signup() {
           
         
         <div className="py-3">
-        <button type="submit" className="bg-gray-300 px-2 rounded-md py-0.5 mx-2">
-            Login
+        <button  className="bg-gray-300 px-2 rounded-md py-0.5 mx-2">
+        <Link to="/login">Login</Link>
           </button>
           <button 
+          type="submit"
           className="bg-green-100 text-green-500 px-2 rounded-md py-0.5">
-            <Link to="/signup">Signup</Link>
+            Signup
           </button>
           
         </div>
