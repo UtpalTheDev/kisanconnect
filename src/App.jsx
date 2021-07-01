@@ -17,6 +17,8 @@ import Search from "./features/search/Search";
 import UserProfile from "./features/search/UserProfile";
 import UserEdit from "./features/user/UserEdit";
 import Navigator from "./components/Navigator"
+import SideNavigator from "./components/SideNavigator";
+import News from "./features/news/News"
 export default function App() {
   console.log("app");
   const navigate = useNavigate();
@@ -51,6 +53,9 @@ export default function App() {
         <img src={logo} className="w-10 h-10 rounded-full m-1"/>
         <span className="px-1 text-lg self-end py-0 my-0">KisanConnect</span>
       </nav>
+
+      <div className="sm:grid sm:grid-cols-3 md:grid-cols-5 ">
+      <SideNavigator/>
       <Navigator/>
 
       <Routes>
@@ -63,6 +68,9 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <PrivateRoute path="/search" element={<Search />} />
       </Routes>
+      <News/>
+      </div>
+   
     </div>
   );
 }
