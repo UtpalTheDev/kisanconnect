@@ -60,7 +60,7 @@ export default function Signup() {
             onChange={(e) => {
               setUserName(e.target.value);
             }}
-            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-2 focus:ring-2"
             required
           />
         </div>
@@ -71,7 +71,7 @@ export default function Signup() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-2 focus:ring-2"
             required
           />
         </div>
@@ -82,7 +82,7 @@ export default function Signup() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-2 focus:ring-2"
             required
           />
         </div>
@@ -94,7 +94,7 @@ export default function Signup() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
+            className="border-solid border rounded-md focus:outline-none py-0.5 px-2 focus:ring-2"
             required
           />
           </div>
