@@ -1,13 +1,14 @@
 // import { useLogin } from "./LoginContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { LogInWithCredentials } from "./authSlice";
 import { userDataOnLoginButtonPress } from "../user/userSlice";
 import logo from "../../assets/logo.svg"
 // import treebanner from "./assets/treebanner.png";
 export default function Login() {
-  let { isUserLogIn, getTokenError } = useSelector((state) => state.auth);
+  let { isUserLogIn, getTokenError,getTokenStatus } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -83,6 +84,17 @@ export default function Login() {
         </form>
         <div style={{ color: "red" }}>{getTokenError}</div>
       </div>
+      { getTokenStatus==="loading" &&
+        <div className="fixed top-0 w-screen h-screen bg-white z-40 flex justify-center items-center">
+        <Loader
+        type="BallTriangle"
+        color="green"
+        height={100}
+        width={100}
+        timeout={1000000} //3 secs
+      />
+      </div>
+      }
     </div>
   
   );

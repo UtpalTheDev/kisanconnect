@@ -23,7 +23,8 @@ export default function App() {
   console.log("app");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {isUserLogIn}=useSelector(state=>state.auth)
+  const {isUserLogIn,getTokenStatus,signupStatus}=useSelector(state=>state.auth)
+  
   useEffect(() => {
     const { isUserLoggedIn, localtoken } =
       JSON.parse(localStorage?.getItem("login")) || {};
@@ -72,7 +73,8 @@ export default function App() {
       </Routes>
       {isUserLogIn && <News/>}
       </div>
-   
+      
+      
     </div>
   );
 }

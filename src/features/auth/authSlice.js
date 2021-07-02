@@ -83,7 +83,7 @@ export const authSlice = createSlice({
   },
   extraReducers: {
     [LogInWithCredentials.pending]: (state, action) => {
-      state.getTokenStatus = "loading..";
+      state.getTokenStatus = "loading";
     },
     [LogInWithCredentials.fulfilled]: (state, action) => {
       state.getTokenStatus = "succeeded";
