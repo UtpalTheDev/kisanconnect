@@ -1,4 +1,3 @@
-// import { useLogin } from "./LoginContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
@@ -6,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { LogInWithCredentials } from "./authSlice";
 import { userDataOnLoginButtonPress } from "../user/userSlice";
 import logo from "../../assets/logo.svg"
-// import treebanner from "./assets/treebanner.png";
 export default function Login() {
   let { isUserLogIn, getTokenError,getTokenStatus } = useSelector((state) => state.auth);
 
@@ -91,7 +89,7 @@ export default function Login() {
         color="green"
         height={100}
         width={100}
-        timeout={1000000} //3 secs
+        timeout={1000000} 
       />
       </div>
       }
