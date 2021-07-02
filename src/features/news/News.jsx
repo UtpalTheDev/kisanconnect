@@ -14,7 +14,7 @@ export default function News(){
     },[])
     console.log("news",newsData)
     return(
-        <div className="px-3 pb-12 hidden sm:block">
+        <div className="px-3 pb-12 hidden md:block ">
             {
                 newsData.length>0 && 
                 newsData.map(newsobj=>{

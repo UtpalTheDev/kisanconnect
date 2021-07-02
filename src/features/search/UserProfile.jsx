@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TimeAgo from "react-timeago";
+import { useNavigate } from "react-router-dom";
 import { followButtonPress, followingButtonPress, followRequestConfirmButtonPress } from "../user/userSlice";
 import {
   userProfile,
@@ -24,7 +25,7 @@ export default function UserProfile() {
   //const [userName, setUserName] = useState("");
   const [commentModal, setCommentModal] = useState("");
   const [likeModal, setLikeModal] = useState("");
-  let { userProfileDetail, followingUserPost,followingUserLikeButtonPressedStatus,  } = useSelector(
+  let { userProfileDetail, followingUserPost,followingUserLikeButtonPressedStatus,userProfileStatus  } = useSelector(
     (state) => state.search
   );
   let { followrequestSent, following, userId } = useSelector(
@@ -33,15 +34,21 @@ export default function UserProfile() {
   
   let dispatch = useDispatch();
   let { userName } = useParams();
-
+  const navigate=useNavigate()
   useEffect(() => {
     dispatch(userProfile(userName));
     dispatch(followingUserPostCall(userName));
+    console.log(userProfileStatus,userProfileDetail)
+    if(userProfileDetail===null && userProfileStatus==="succeeded"){
+      console.log("navigate")
+      navigate("*")
+    }
     return ()=>{
       console.log("cleanup")
       dispatch(userProfileDetailReset())
     
     };
+    
   }, []);
   useEffect(()=>{
     if(followingUserLikeButtonPressedStatus==="succeeded"){

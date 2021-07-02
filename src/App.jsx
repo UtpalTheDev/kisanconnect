@@ -18,7 +18,8 @@ import UserProfile from "./features/search/UserProfile";
 import UserEdit from "./features/user/UserEdit";
 import Navigator from "./components/Navigator"
 import SideNavigator from "./components/SideNavigator";
-import News from "./features/news/News"
+import News from "./features/news/News";
+import NotFound from "./NotFound"
 export default function App() {
   console.log("app");
   const navigate = useNavigate();
@@ -69,7 +70,9 @@ export default function App() {
         <PrivateRoute path="/notification" element={<Notification />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <PrivateRoute path="/search" element={<Search />} />
+        <PrivateRoute path="/search" element={<Search />} 
+        />
+        <Route path="*" element={<NotFound />}/>
       </Routes>
       {isUserLogIn && <News/>}
       </div>
