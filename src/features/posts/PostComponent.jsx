@@ -5,6 +5,7 @@ import TimeAgo from "react-timeago"
 import {useSelector,useDispatch} from "react-redux"
 import {Link} from "react-router-dom"
 import {BiHeart} from "react-icons/bi"
+import {AiFillHeart,AiOutlineHeart} from "react-icons/ai"
 import {
   likeButtonPressed,
   commentButtonPressed,
@@ -35,7 +36,8 @@ export default function PostComponent({eachpost}){
             )
           }
         >
-          <BiHeart className="text-2xl"/>
+          {eachpost.likes.includes(userId)&&<AiFillHeart className="text-2xl fill-current text-red-500"/>}
+          {!eachpost.likes.includes(userId)&&<AiOutlineHeart className="text-2xl "/>}
         </button>
         <span
         className="text-sm px-1"
