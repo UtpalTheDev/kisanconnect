@@ -7,12 +7,10 @@ export default function News(){
 
     useEffect(()=>{
         if(newsStatus="idle"){
-            console.log("chala")
         dispatch(NewsOnLoad("not able to get news"))
         }
 
     },[])
-    console.log("news",newsData)
     return(
         <div className="px-3 pb-12 hidden md:block ">
             {
@@ -21,7 +19,7 @@ export default function News(){
                     return(
                         <a href={newsobj.url}className="py-2 text-sm block">
                             <img src={newsobj.image_url} className="w-full rounded-md"/>
-                            <div className="font-semibold">{newsobj.title}</div>
+                            <div className="font-semibold pt-2">{newsobj.title}</div>
                             <div className="text-xs pt-2">{newsobj.description}</div>
                         </a>    
                     )

@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 import { resetPost } from "../posts/postslice";
 import { Link } from "react-router-dom";
-import TimeAgo from "react-timeago";
-import Like from "../posts/Like";
-import Comment from "../posts/Comment";
+
 import {
   userSpecificPostOnLoad,
   resetUser,
@@ -15,18 +13,11 @@ import {
   userDataOnUserPageLoad,
   followingButtonPress
 } from "./userSlice";
-import {
-  likeButtonPressed,
-  commentButtonPressed,
-  likeDataOnTextPressed,
-  postDeleteButtonPressed
-} from "../posts/postslice";
+
 import PostComponent from "../posts/PostComponent";
 
 export default function User() {
-  const [commentModal, setCommentModal] = useState("");
-  const [likeModal, setLikeModal] = useState("");
-  const { isUserLogIn, token } = useSelector((state) => state.auth);
+  
   const {
     userName,
     name,
@@ -47,10 +38,7 @@ export default function User() {
     dispatch(userSpecificPostOnLoad());
     dispatch(followSuggestion());
   }, []);
-  console.log("userposts", userposts);
-  console.log("notification err", notificationError);
-  console.log("followrequestsent", followrequestSent);
-  console.log("followrequestgot", followrequestGot);
+
 
   return (
     <div className="user relative min-h-screen sm:col-span-2 md:col-span-3">
@@ -153,7 +141,7 @@ export default function User() {
     
       
       {userposts.length>0 && (
-        <div className="px-2 pt-4 pb-12 flex flex-col h-full rounded-t-lg shadow-inner bg-yellow-50 mt-7 ">
+        <div className="px-2 pt-4 pb-12 flex flex-col h-screen rounded-t-lg shadow-inner bg-yellow-50 mt-7 ">
           {userposts.map((eachpost) => {
             return (
               <PostComponent eachpost={eachpost}/>

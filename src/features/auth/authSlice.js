@@ -9,7 +9,6 @@ export const LogInWithCredentials = createAsyncThunk(
         "https://social-media-demo.utpalpati.repl.co/login",
         { user: logindata }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -37,8 +36,6 @@ export const signupButtonPressed = createAsyncThunk(
   }
 );
 
-console.log("authslice");
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -51,13 +48,11 @@ export const authSlice = createSlice({
   },
   reducers: {
     loginWithToken: (state, action) => {
-      console.log("loginwithtoken", action);
       state.token = action.payload.localtoken;
       state.isUserLogIn = true;
       setupAuthHeaderForServiceCalls(action.payload.localtoken);
     },
     logOut: (state) => {
-      console.log("logout");
       localStorage?.removeItem("login");
       state.isUserLogIn = false;
       state.token = null;
@@ -100,7 +95,6 @@ export const authSlice = createSlice({
     },
     [LogInWithCredentials.rejected]: (state, action) => {
       state.getTokenStatus = "failed";
-      console.log("error", action.payload.message);
       state.getTokenError = action.payload.message;
     },
     [signupButtonPressed.pending]: (state) => {

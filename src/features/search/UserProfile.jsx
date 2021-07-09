@@ -22,7 +22,6 @@ import { useParams } from "react-router-dom";
 import {BsFillLockFill} from "react-icons/bs"
 
 export default function UserProfile() {
-  //const [userName, setUserName] = useState("");
   const [commentModal, setCommentModal] = useState("");
   const [likeModal, setLikeModal] = useState("");
   let { userProfileDetail, followingUserPost,followingUserLikeButtonPressedStatus,userProfileStatus  } = useSelector(
@@ -38,13 +37,10 @@ export default function UserProfile() {
   useEffect(() => {
     dispatch(userProfile(userName));
     dispatch(followingUserPostCall(userName));
-    console.log(userProfileStatus,userProfileDetail)
     if(userProfileDetail===null && userProfileStatus==="succeeded"){
-      console.log("navigate")
       navigate("*")
     }
     return ()=>{
-      console.log("cleanup")
       dispatch(userProfileDetailReset())
     
     };
@@ -52,7 +48,6 @@ export default function UserProfile() {
   }, []);
   useEffect(()=>{
     if(followingUserLikeButtonPressedStatus==="succeeded"){
-      console.log("fff")
     dispatch(followingUserPostCall(userName))
   }
   },[followingUserLikeButtonPressedStatus])

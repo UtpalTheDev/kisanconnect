@@ -1,12 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-console.log("postslice");
 export const fetchPosts = createAsyncThunk("post/fetchposts", async () => {
   const response = await axios.get(
     "https://social-media-demo.utpalpati.repl.co/posts"
   );
-  // console.log("l",response);
   return response.data;
 });
 export const likeButtonPressed = createAsyncThunk(
@@ -16,7 +14,6 @@ export const likeButtonPressed = createAsyncThunk(
       "https://social-media-demo.utpalpati.repl.co/posts/likes",
       likeupdateobj
     );
-    //  console.log("l",response);
     return response.data;
   }
 );
@@ -27,7 +24,6 @@ export const commentSendButtonPressed = createAsyncThunk(
       "https://social-media-demo.utpalpati.repl.co/posts/comment",
       commentobj
     );
-    //  console.log("l",response);
     return response.data;
   }
 );
@@ -37,7 +33,6 @@ export const commentButtonPressed = createAsyncThunk(
     const response = await axios.get(
       `https://social-media-demo.utpalpati.repl.co/posts/comment/${postID}`
     );
-    //  console.log("l",response);
     return response.data;
   }
 );
@@ -48,7 +43,6 @@ export const postButtonPressed = createAsyncThunk(
       "https://social-media-demo.utpalpati.repl.co/posts",
       postobj
     );
-    //  console.log("l",response);
     return response.data;
   }
 );
@@ -59,14 +53,12 @@ export const postDeleteButtonPressed = createAsyncThunk(
       "https://social-media-demo.utpalpati.repl.co/posts/delete",
       { data: deletingobj }
     );
-    //  console.log("l",response);
     return response.data;
   }
 );
 export const likeDataOnTextPressed = createAsyncThunk(
   "post/likeDataOnTextPressed",
   async (postId) => {
-    console.log(postId);
     const response = await axios.post(
       "https://social-media-demo.utpalpati.repl.co/posts/like_data",
       { postId }
@@ -127,7 +119,6 @@ export const postslice = createSlice({
     [likeButtonPressed.fulfilled]: (state, action) => {
       state.postStatus = "succeeded";
       const { _id, likes } = action.payload.post;
-      // console.log(_id, likes);
       state.postData.find((item) => item._id === _id).likes = likes;
     },
     [likeButtonPressed.rejected]: (state, action) => {

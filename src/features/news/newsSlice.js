@@ -4,7 +4,6 @@ export const NewsOnLoad = createAsyncThunk(
     "news/NewsOnLoad",
     async (errormsg,{ rejectWithValue }) => {
       try {
-        //console.log("search call");
         
           let response = await axios.get(
             `https://api.thenewsapi.com/v1/news/top?api_token=uWjx9wSBfkieTIEGDCwoICBVfmftqYzil6vhn118&locale=us&limit=4`

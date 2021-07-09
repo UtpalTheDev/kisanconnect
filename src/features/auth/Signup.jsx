@@ -16,8 +16,6 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
   let { state } = useLocation();
-  console.log("form", state);
-  //console.log("error",signupError);
 
   useEffect(() => {
     if (isUserLogIn) {

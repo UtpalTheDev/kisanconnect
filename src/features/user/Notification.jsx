@@ -4,7 +4,6 @@ import {
   followRequestDataOnNotificationPageLoad,
   followRequestConfirmButtonPress
 } from "./userSlice";
-import TimeAgo from "react-timeago";
 import { useSelector, useDispatch } from "react-redux";
 export default function Notification() {
   let { notification, notificationError } = useSelector((state) => state.user);
@@ -14,7 +13,6 @@ export default function Notification() {
     dispatch(followRequestDataOnNotificationPageLoad());
     dispatch(notificationOnLoad());
   }, [follower]);
-  // console.log("noti", followrequestGot);
   return (
     <div className="bg-white p-2 sm:col-span-2 md:col-span-3">
       {followrequestGot !== null &&
@@ -44,7 +42,7 @@ export default function Notification() {
       {notification !== null &&
         notification.map((item) => {
           return (
-          <div className="border-b py-2 px-2 my-2 max-h-14 bg-white">
+          <div className="border-b py-2 px-2 my-2 max-h-14 bg-white pb-1">
             {item}
           </div>);
         })}

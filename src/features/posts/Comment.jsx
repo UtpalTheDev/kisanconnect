@@ -11,7 +11,6 @@ export default function Comment({ postID, setCommentModal, postObj }) {
     let { userName, userId } = useSelector((state) => state.user);
   
     let dispatch = useDispatch();
-    console.log("commentData", commentData);
   
     return (
       <div className="fixed z-10 h-screen top-0 left-0 bg-white w-screen">

@@ -12,7 +12,6 @@ export default function UserEdit() {
     email: email,
     bio: bio
   });
-  console.log("inputs here", inputFields);
   return (
     <div className="">
       <form

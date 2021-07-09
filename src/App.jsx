@@ -21,7 +21,6 @@ import SideNavigator from "./components/SideNavigator";
 import News from "./features/news/News";
 import NotFound from "./NotFound"
 export default function App() {
-  console.log("app");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {isUserLogIn,getTokenStatus,signupStatus}=useSelector(state=>state.auth)
@@ -30,7 +29,6 @@ export default function App() {
     const { isUserLoggedIn, localtoken } =
       JSON.parse(localStorage?.getItem("login")) || {};
     isUserLoggedIn && localtoken && dispatch(loginWithToken({ localtoken }));
-    console.log("localtoken", localtoken);
     setupAuthExceptionHandler(dispatch, navigate);
   }, []);
 
@@ -40,7 +38,6 @@ export default function App() {
       (response) => response,
       (error) => {
         if (error?.response?.status === UNAUTHORIZED) {
-          console.log("line34");
           dispatch(logOut());
           navigate("login");
         }

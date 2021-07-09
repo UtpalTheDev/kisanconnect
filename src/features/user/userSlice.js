@@ -5,7 +5,6 @@ export const userDataOnLoginButtonPress = createAsyncThunk(
   "user/userDataOnLoginButtonPress",
   async (value, { rejectWithValue }) => {
     try {
-      console.log("userDataOnLoginButtonPress");
       let response = await axios.get(
         "https://social-media-demo.utpalpati.repl.co/user"
       );
@@ -19,7 +18,6 @@ export const notificationOnLoad = createAsyncThunk(
   "user/notificationOnLoad",
   async (value, { rejectWithValue }) => {
     try {
-      console.log("notificationOnLoad");
       let response = await axios.get(
         "https://social-media-demo.utpalpati.repl.co/user/notification"
       );
@@ -77,7 +75,6 @@ export const userDataOnUserPageLoad = createAsyncThunk(
       let response = await axios.get(
         "https://social-media-demo.utpalpati.repl.co/user/details"
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -194,7 +191,6 @@ export const userSlice = createSlice({
     },
     [userDataOnLoginButtonPress.fulfilled]: (state, action) => {
       state.userDataStatus = "succeeded";
-      console.log("kd", action);
       state.userId = action.payload._id;
       state.userName = action.payload.userName;
       state.email = action.payload.email;
@@ -214,7 +210,6 @@ export const userSlice = createSlice({
     },
     [notificationOnLoad.rejected]: (state, action) => {
       state.notificationStatus = "failed";
-      console.log("noterr", action);
       state.notificationError = action.payload.message;
     },
     [userSpecificPostOnLoad.pending]: (state) => {
@@ -248,14 +243,13 @@ export const userSlice = createSlice({
     },
     [followButtonPress.rejected]: (state, action) => {
       state.followRequestStatus = "failed";
-      // state.followSuggestionError = action.payload.message;
+
     },
     [userDataOnUserPageLoad.pending]: (state) => {
       state.userDataStatus = "loading";
     },
     [userDataOnUserPageLoad.fulfilled]: (state, action) => {
       state.userDataStatus = "succeeded";
-      console.log("payload", action);
       const {
         followers,
         following,
@@ -271,7 +265,7 @@ export const userSlice = createSlice({
     },
     [userDataOnUserPageLoad.rejected]: (state, action) => {
       state.userDataStatus = "failed";
-      // state.followSuggestionError = action.payload.message;
+
     },
     [followRequestDataOnNotificationPageLoad.pending]: (state) => {
       state.userDataStatus = "loading";
@@ -282,7 +276,7 @@ export const userSlice = createSlice({
     },
     [followRequestDataOnNotificationPageLoad.rejected]: (state, action) => {
       state.userDataStatus = "failed";
-      // state.followSuggestionError = action.payload.message;
+
     },
     [followRequestConfirmButtonPress.pending]: (state) => {
       state.userDataStatus = "loading";
@@ -296,7 +290,6 @@ export const userSlice = createSlice({
         (item) => item._id !== _id
       );
       state.follower.push({ _id, userName });
-      // console.log("got", state.followrequestGot);
     },
     [followRequestConfirmButtonPress.rejected]: (state, action) => {
       state.userDatatStatus = "failed";

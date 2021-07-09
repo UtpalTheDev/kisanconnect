@@ -24,7 +24,6 @@ export default function Posts() {
   );
   let { userName, userId, following } = useSelector((state) => state.user);
   let dispatch = useDispatch();
-  console.log(getPostStatus, postError, postData);
   useEffect(() => {
     // if (getPostStatus === "idle") {
     dispatch(fetchPosts());

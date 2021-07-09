@@ -5,7 +5,6 @@ export const userSearching = createAsyncThunk(
   "search/userSearching",
   async (userName, { rejectWithValue }) => {
     try {
-      //console.log("search call");
       if (userName !== "") {
         let response = await axios.get(
           `https://social-media-demo.utpalpati.repl.co/search/${userName}`
@@ -23,7 +22,6 @@ export const userProfile = createAsyncThunk(
   "search/userProfile",
   async (userName, { rejectWithValue }) => {
     try {
-      console.log("search call");
       let response = await axios.get(
         `https://social-media-demo.utpalpati.repl.co/user/${userName}`
       );
@@ -37,7 +35,6 @@ export const followingUserPostCall = createAsyncThunk(
   "search/followingUserPostCall",
   async (userName, { rejectWithValue }) => {
     try {
-      console.log("search call");
       let response = await axios.post(
         "https://social-media-demo.utpalpati.repl.co/posts/following_user_post",
         { userName }
