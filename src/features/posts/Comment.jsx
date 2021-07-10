@@ -60,7 +60,7 @@ export default function Comment({ postID, setCommentModal, postObj }) {
           <div className="flex-grow flex pb-1">
           <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" className="w-8 h-8 rounded-full"/>
           <input
-          className="bg-white  focus:outline-none focus:border-blue-200 px-1 "
+          className="bg-white  focus:outline-none focus:border-blue-200 px-1 flex-grow"
             placeholder="write something"
             value={comment}
             onChange={(e) => {
