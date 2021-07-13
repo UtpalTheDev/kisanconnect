@@ -11,30 +11,17 @@ import {
   likeDataOnTextPressed,
   postDeleteButtonPressed
 } from "./postslice";
-import Search from "../search/Search";
-import Like from "./Like";
-import Comment from "./Comment";
-import SideNavigator from "../../components/SideNavigator"
+
 export default function Posts() {
   const [post, setPost] = useState("");
-  const [commentModal, setCommentModal] = useState("");
-  const [likeModal, setLikeModal] = useState("");
   let { getPostStatus, postError, postData } = useSelector(
     (state) => state.post
   );
   let { userName, userId, following } = useSelector((state) => state.user);
   let dispatch = useDispatch();
   useEffect(() => {
-    // if (getPostStatus === "idle") {
     dispatch(fetchPosts());
-    // let timer = setInterval(() => {
-    //   console.log("updating after 15 s")
-    //   dispatch(fetchPosts());
-    // }, 15000);
-    // return ()=>{
-    //   clearInterval(timer)
-    // }
-    // }
+
   }, [following]);
   return (
  
@@ -68,7 +55,9 @@ export default function Posts() {
                   }
                 }
               })
+              
             );
+            setPost("")
           }}
         >
           Post
@@ -77,7 +66,7 @@ export default function Posts() {
         
       </div>
       
-      <div className="px-2 py-4 flex flex-col h-full ">
+      <div className="px-2 pt-4 pb-10 flex flex-col h-full ">
         {postData.map((item) => {
           return (
               <PostComponent eachpost={item} />
