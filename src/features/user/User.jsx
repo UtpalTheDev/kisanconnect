@@ -139,7 +139,7 @@ export default function User() {
         })}
         </div>
     
-      <div className="w-screen h-7 bg-white"></div>
+      <div className="w-full h-7 bg-white"></div>
       {userposts.length>0 && (
         <div className="px-2 pt-4 pb-12 flex flex-col h-screen  shadow-inner  ">
           {userposts.map((eachpost) => {

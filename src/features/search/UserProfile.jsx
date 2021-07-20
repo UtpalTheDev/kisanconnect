@@ -130,7 +130,7 @@ export default function UserProfile() {
       </div>
 
       )}
-     <div className="w-screen h-7 bg-white"></div>
+     <div className="w-full h-7 bg-white"></div>
 
       {userProfileDetail?._id &&
         following.find(
