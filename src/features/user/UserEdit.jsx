@@ -13,7 +13,7 @@ export default function UserEdit() {
     bio: bio
   });
   return (
-    <div className="">
+    <div className="min-h-screen sm:col-span-2 md:col-span-3">
       <form
        className="flex flex-col px-2 py-2 w-full"
         onSubmit={(e) => {
