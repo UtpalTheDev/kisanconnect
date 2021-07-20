@@ -14,7 +14,7 @@ import {
   followingButtonPress
 } from "./userSlice";
 
-import PostComponent from "../posts/PostComponent";
+import UserPostComponent from "./UserPostComponent";
 
 export default function User() {
   
@@ -32,6 +32,7 @@ export default function User() {
     following,
     follower
   } = useSelector((state) => state.user);
+  const {postData}=useSelector((state)=>state.post)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userDataOnUserPageLoad());
@@ -144,7 +145,7 @@ export default function User() {
         <div className="px-2 pt-4 pb-12 flex flex-col h-screen  shadow-inner  ">
           {userposts.map((eachpost) => {
             return (
-              <PostComponent eachpost={eachpost}/>
+              <UserPostComponent eachpost={eachpost}/>
             );
           })}
         </div>
