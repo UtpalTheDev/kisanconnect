@@ -41,7 +41,7 @@ export default function User() {
 
 
   return (
-    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3">
+    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3 bg-yellow-50">
       <div className="user-data px-2 pt-4 pb-2 bg-white">
         <div className="flex items-center"><BsFillLockFill className="text-sm"/>
         <span className="text-lg">{userName}</span>
@@ -139,9 +139,9 @@ export default function User() {
         })}
         </div>
     
-      
+      <div className="w-screen h-7 bg-white"></div>
       {userposts.length>0 && (
-        <div className="px-2 pt-4 pb-12 flex flex-col h-screen rounded-t-lg shadow-inner bg-yellow-50 mt-7 ">
+        <div className="px-2 pt-4 pb-12 flex flex-col h-screen  shadow-inner  ">
           {userposts.map((eachpost) => {
             return (
               <PostComponent eachpost={eachpost}/>
