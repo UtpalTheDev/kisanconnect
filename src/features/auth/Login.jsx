@@ -8,8 +8,8 @@ import logo from "../../assets/logo.svg"
 export default function Login() {
   let { isUserLogIn, getTokenError,getTokenStatus } = useSelector((state) => state.auth);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("123456");
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
@@ -52,6 +52,7 @@ export default function Login() {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
+              value={email}
               className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
               required
             />
@@ -64,6 +65,7 @@ export default function Login() {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              value={password}
               className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
               required
             />
