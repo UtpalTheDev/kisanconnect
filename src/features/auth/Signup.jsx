@@ -101,14 +101,18 @@ export default function Signup() {
           
         
         <div className="py-3">
-        <button  className="bg-gray-300 px-2 rounded-md py-0.5 mx-2">
-        <Link to="/login">Login</Link>
-          </button>
+        
           <button 
           type="submit"
           className="bg-green-100 text-green-500 px-2 rounded-md py-0.5">
             Signup
           </button>
+          <hr className="mt-2"/>
+
+          <div className="pb-2 pt-1 text-center text-xs text-gray-500">
+            Don't have an account? <Link className="text-blue-500"to="/login">Log In</Link>
+            
+            </div>
           
         </div>
       </form>

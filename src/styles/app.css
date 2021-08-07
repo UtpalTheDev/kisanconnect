@@ -6,9 +6,16 @@ body {
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
   }
+
+#root{
+  display:flex;
+  
+  justify-content:center;
+}
   .App{
     min-height:100vh;
     width:100%;
+    max-width:1511px;
     overflow:hidden;
   }
   .app-header {
@@ -56,4 +63,7 @@ body {
     bottom: 0;
     width: 100%;
     background: white;
+  }
+  .login{
+    max-width:1511px;
   }
