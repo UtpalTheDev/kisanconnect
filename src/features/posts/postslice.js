@@ -14,6 +14,8 @@ export const likeButtonPressed = createAsyncThunk(
       "https://social-media-demo.utpalpati.repl.co/posts/likes",
       likeupdateobj
     );
+    console.log("in like")
+
     return response.data;
   }
 );
@@ -118,7 +120,9 @@ export const postslice = createSlice({
     },
     [likeButtonPressed.fulfilled]: (state, action) => {
       state.postStatus = "succeeded";
+      
       const { _id, likes } = action.payload.post;
+      console.log("in like",_id)
       state.postData.find((item) => item._id === _id).likes = likes;
     },
     [likeButtonPressed.rejected]: (state, action) => {

@@ -12,7 +12,18 @@ module.exports = {
       '3/4': '75%',
       'full': '100%',
       'screen':'100vh',
-     }
+     },
+     flexGrow: {
+      '0': 0,
+
+     DEFAULT: 1,
+
+     DEFAULT: 2,
+
+     '1': 1,
+     '2': 2,
+     '3': 3
+    }
   },
   variants: {
     extend: {},

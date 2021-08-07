@@ -14,6 +14,28 @@ export const userDataOnLoginButtonPress = createAsyncThunk(
     }
   }
 );
+export const loginUserPostLikeButtonPressed = createAsyncThunk(
+  "user/loginUserPostLikeButtonPressed",
+  async (likeupdateobj) => {
+    const response = await axios.post(
+      "https://social-media-demo.utpalpati.repl.co/posts/likes",
+      likeupdateobj
+    );
+    console.log("in like")
+
+    return response.data;
+  }
+);
+export const loginUserPostDeleteButtonPressed = createAsyncThunk(
+  "user/loginUserPostDeleteButtonPressed",
+  async (deletingobj) => {
+    const response = await axios.delete(
+      "https://social-media-demo.utpalpati.repl.co/posts/delete",
+      { data: deletingobj }
+    );
+    return response.data;
+  }
+);
 export const notificationOnLoad = createAsyncThunk(
   "user/notificationOnLoad",
   async (value, { rejectWithValue }) => {
@@ -153,6 +175,10 @@ export const userSlice = createSlice({
     followrequestSent: [],
     userpostsStatus: "idle",
     userpostsError: null,
+    userpostLikeStatus:'idle',
+    userpostLikeError:null,
+    userpostDeleteStatus:'idle',
+    userpostDeleteError:null,
     notification: null,
     userDataStatus: "idle",
     userDataError: null,
@@ -201,6 +227,38 @@ export const userSlice = createSlice({
       state.userDataStatus = "failed";
       state.userDataError = action.payload.message;
     },
+
+    /*---------likebutton-----------------------------*/
+    [loginUserPostLikeButtonPressed.pending]: (state, action) => {
+      state.userpostLikeStatus = "loading";
+    },
+    [loginUserPostLikeButtonPressed.fulfilled]: (state, action) => {
+      state.userpostLikeStatus = "succeeded";
+      
+      const { _id, likes } = action.payload.post;
+      console.log("in like",_id)
+      state.userposts.find((item) => item._id === _id).likes = likes;
+    },
+    [loginUserPostLikeButtonPressed.rejected]: (state, action) => {
+      state.userpostLikeStatus = "failed";
+      state.userpostLikeError = action.error.message;
+    },
+    /*-----------------------post delete-------- */
+    [loginUserPostDeleteButtonPressed.pending]: (state, action) => {
+      state.userpostDeleteStatus = "loading";
+    },
+    [loginUserPostDeleteButtonPressed.fulfilled]: (state, action) => {
+      state.userpostDeleteStatus = "succeeded";
+      const { postdeleteobj } = action.payload;
+      state.userposts = state.userposts.filter(
+        (postobj) => postobj._id !== postdeleteobj._id
+      );
+    },
+    [loginUserPostDeleteButtonPressed.rejected]: (state, action) => {
+      state.userpostDeleteStatus = "failed";
+      state.userpostDeleteError = action.error.message;
+    },
+
     [notificationOnLoad.pending]: (state) => {
       state.notificationStatus = "loading";
     },

@@ -8,8 +8,8 @@ import logo from "../../assets/logo.svg"
 export default function Login() {
   let { isUserLogIn, getTokenError,getTokenStatus } = useSelector((state) => state.auth);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("123456");
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
@@ -29,13 +29,13 @@ export default function Login() {
     dispatch(LogInWithCredentials({ email, password }));
   }
   return (
-    <div class="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-screen flex flex-col md:flex-row sm:justify-between items-center">
-      <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow flex-col items-center mb-2">
+    <div className="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-full flex flex-col md:flex-row sm:justify-between items-center">
+      <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow-2 flex-col items-center mb-2">
       <img src={logo} className="w-3/6 max-w-md py-2" alt="sideimg" />
       <span className="text-xl py-3">KisanConnect</span>
       </div>
     
-      <div className="form-container bg-red text-red align-center px-8">
+      <div className="form-container bg-red text-red align-center px-8 flex-grow-1 flex items-center flex-col">
         <div className="text-center text-xl font-semibold">Login</div>
 
         <form
@@ -52,6 +52,7 @@ export default function Login() {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
+              value={email}
               className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
               required
             />
@@ -64,6 +65,7 @@ export default function Login() {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              value={password}
               className="border-solid border rounded-md focus:outline-none py-0.5 px-0.5 focus:ring-2"
               required
             />
@@ -72,12 +74,15 @@ export default function Login() {
             
           
           <div className="py-3">
-            <button className="bg-gray-300 px-2 rounded-md py-0.5 mx-2">
-              <Link to="/signup">Signup</Link>
-            </button>
-            <button type="submit" className="bg-green-100 text-green-500 px-2 rounded-md py-0.5">
+
+          <button type="submit" className="bg-green-100 text-green-500 px-2 rounded-md py-0.5">
               Login
             </button>
+            <hr className="mt-2"/>
+            <div className="pb-2 pt-1 text-center text-xs text-gray-500">
+            Don't have an account? <Link className="text-blue-500"to="/signup">Sign Up</Link>
+            
+            </div>
           </div>
         </form>
         <div style={{ color: "red" }}>{getTokenError}</div>

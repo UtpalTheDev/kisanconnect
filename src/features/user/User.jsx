@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 import { resetPost } from "../posts/postslice";
 import { Link } from "react-router-dom";
+import emptyPost from "../../assets/clean-air.svg"
 
 import {
   userSpecificPostOnLoad,
@@ -14,7 +15,7 @@ import {
   followingButtonPress
 } from "./userSlice";
 
-import PostComponent from "../posts/PostComponent";
+import UserPostComponent from "./UserPostComponent";
 
 export default function User() {
   
@@ -32,6 +33,7 @@ export default function User() {
     following,
     follower
   } = useSelector((state) => state.user);
+  const {postData}=useSelector((state)=>state.post)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userDataOnUserPageLoad());
@@ -41,7 +43,7 @@ export default function User() {
 
 
   return (
-    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3">
+    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3 bg-yellow-50">
       <div className="user-data px-2 pt-4 pb-2 bg-white">
         <div className="flex items-center"><BsFillLockFill className="text-sm"/>
         <span className="text-lg">{userName}</span>
@@ -139,12 +141,18 @@ export default function User() {
         })}
         </div>
     
-      
+      <div className="w-full h-7 bg-white"></div>
+      {userposts.length===0 && 
+      <div className="flex justify-center items-center flex-col px-2 pt-4">
+      <img  className="max-w-xl" src={emptyPost}/>
+      <div className="pb-14"> You don't have any post to see</div>
+     </div>   
+      }
       {userposts.length>0 && (
-        <div className="px-2 pt-4 pb-12 flex flex-col h-screen rounded-t-lg shadow-inner bg-yellow-50 mt-7 ">
+        <div className="px-2 pt-4 pb-12 flex flex-col h-screen  shadow-inner  ">
           {userposts.map((eachpost) => {
             return (
-              <PostComponent eachpost={eachpost}/>
+              <UserPostComponent eachpost={eachpost}/>
             );
           })}
         </div>

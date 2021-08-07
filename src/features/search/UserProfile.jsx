@@ -52,7 +52,7 @@ export default function UserProfile() {
   }
   },[followingUserLikeButtonPressedStatus])
   return (
-    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3">
+    <div className="user relative min-h-screen sm:col-span-2 md:col-span-3 bg-yellow-50">
       {userProfileDetail !== null && (
 
         <div className="user-data px-2 pt-4 pb-2 bg-white">
@@ -130,13 +130,14 @@ export default function UserProfile() {
       </div>
 
       )}
-      
+     <div className="w-full h-7 bg-white"></div>
+
       {userProfileDetail?._id &&
         following.find(
           (followingobj) => followingobj._id === userProfileDetail._id
         ) &&
         followingUserPost.length > 0 && (
-          <div className="px-2 pt-4 pb-12 flex flex-col h-full rounded-t-lg shadow-inner bg-yellow-50 mt-7 h-screen ">
+          <div className="px-2 pt-4 pb-12 flex flex-col h-full  shadow-inner  h-screen ">
             {followingUserPost.map((eachpost) => {
               return (
                     <div className="relative px-2 py-2 my-3 rounded-lg shadow-md bg-white">
