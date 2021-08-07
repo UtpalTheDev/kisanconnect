@@ -16,7 +16,7 @@ export default function Notification() {
   }, [follower]);
   return (
     <div className="bg-white p-2 sm:col-span-2 md:col-span-3">
-      {followrequestGot !==null && notification!==null &&
+      {followrequestGot ==null && notification==null &&
         <div className="flex justify-center items-center flex-col">
           <img  className="max-w-xl"src={noNotification}/>
           <div className="mb-5"> You don't have any notifications to see</div>
