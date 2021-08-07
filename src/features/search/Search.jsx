@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userSearching, clearMatchList } from "./searchSlice";
+import Match from "../../assets/fallDown.svg"
 export default function Search() {
   let { matchlist } = useSelector((state) => state.search);
   let { userId } = useSelector((state) => state.user);
@@ -37,8 +38,15 @@ export default function Search() {
         }}
       />
       <div>
+      { matchlist.length === 0 && 
+      <div className="flex justify-center items-center flex-col px-2 pt-4">
+      <img  className="max-w-xs" src={Match}/>
+      <div className="mb-5 pt-3"> You don't have any match to see</div>
+     </div>   
+      }
       {matchlist.length > 0 && (
         <div className="pt-4 px-1">
+          
           {matchlist.map((matchuser) => {
             return (
               <div className="py-2">

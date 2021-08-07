@@ -70,9 +70,9 @@ export default function Posts() {
       <div className="px-2 pt-4 pb-10 flex flex-col h-full ">
         {postData.length===0 && 
         <div className="flex justify-center items-center flex-col">
-          <img  className="max-w-xl"src={emptyPost}/>
-          <div className="mb-5"> You don't have any post to see</div>
-        </div>  
+        <img  className="max-w-xl"src={emptyPost}/>
+        <div className="mb-5"> You don't have any post to see</div>
+       </div>  
         }
         {postData.length!==0 && postData.map((item) => {
           return (

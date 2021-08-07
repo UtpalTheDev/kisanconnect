@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../auth/authSlice";
 import { resetPost } from "../posts/postslice";
 import { Link } from "react-router-dom";
+import emptyPost from "../../assets/clean-air.svg"
 
 import {
   userSpecificPostOnLoad,
@@ -141,6 +142,12 @@ export default function User() {
         </div>
     
       <div className="w-full h-7 bg-white"></div>
+      {userposts.length===0 && 
+      <div className="flex justify-center items-center flex-col px-2 pt-4">
+      <img  className="max-w-xl" src={emptyPost}/>
+      <div className="pb-14"> You don't have any post to see</div>
+     </div>   
+      }
       {userposts.length>0 && (
         <div className="px-2 pt-4 pb-12 flex flex-col h-screen  shadow-inner  ">
           {userposts.map((eachpost) => {
