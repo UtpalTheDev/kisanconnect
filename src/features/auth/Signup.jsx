@@ -36,13 +36,13 @@ export default function Signup() {
   }
   return (
 
-    <div class="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-screen flex flex-col md:flex-row sm:justify-between items-center h-screen overflow-y-scroll pb-2">
-    <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow flex-col items-center mb-2">
+    <div className="login bg-red text-red fixed top-0 z-10 bg-white min-h-screen w-full flex flex-col md:flex-row sm:justify-between items-center h-screen overflow-y-auto pb-2">
+    <div className="w-full sm:w-2/4 flex justify-center  sm:flex-grow-2 flex-col items-center mb-2">
     <img src={logo} className="w-3/6 max-w-md py-2" alt="sideimg" />
     <span className="text-xl py-3">KisanConnect</span>
     </div>
   
-    <div className="form-container bg-red text-red align-center px-8">
+    <div className="form-container bg-red text-red align-center px-8  flex-grow-1 flex items-center flex-col">
       <div className="text-center text-xl font-semibold">SignUp</div>
 
       <form
