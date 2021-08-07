@@ -11,6 +11,7 @@ import {
   likeDataOnTextPressed,
   postDeleteButtonPressed
 } from "./postslice";
+import emptyPost from "../../assets/clean-air.svg"
 
 export default function Posts() {
   const [post, setPost] = useState("");
@@ -67,7 +68,13 @@ export default function Posts() {
       </div>
       
       <div className="px-2 pt-4 pb-10 flex flex-col h-full ">
-        {postData.map((item) => {
+        {postData.length===0 && 
+        <div className="flex justify-center items-center flex-col">
+          <img  className="max-w-xl"src={emptyPost}/>
+          <div className="mb-5"> You don't have any post to see</div>
+        </div>  
+        }
+        {postData.length!==0 && postData.map((item) => {
           return (
               <PostComponent eachpost={item} />
           );
