@@ -3,7 +3,7 @@ import {BiUser,BiHome,BiBell,BiSearch} from "react-icons/bi"
 export default function SideNavigator(){
 
     return(
-        <div className=sm:flex bg-white w-full flex-col px-3  py-16  ">
+        <div className="sm:flex bg-white w-full flex-col px-3  py-16  ">
         <Link to="/user" className="block flex items-center py-2">
             <BiUser className="text-2xl"/>
             <div className="text-xl pl-1">User</div>
